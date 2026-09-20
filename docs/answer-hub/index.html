@@ -514,7 +514,7 @@ async function signupUser(state,qs,answers){
   clearSensitive();
   try{
     $("#finishSignup").disabled=true;
-    const d=await api("/auth/v1/signup",{method:"POST",auth:false,body:{email:state.email,password:state.password,data:{full_name:state.full_name,username:state.username,requested_role:state.requested_role}}});
+    const d=await api("/auth/v1/signup?redirect_to="+encodeURIComponent(location.origin+location.pathname),{method:"POST",auth:false,body:{email:state.email,password:state.password,data:{full_name:state.full_name,username:state.username,requested_role:state.requested_role}}});
     localStorage.setItem("ah-pending-onboarding",JSON.stringify({email:state.email.toLowerCase(),role:state.requested_role,qs,answers}));
     if(d.session||d.access_token){saveSession(d.session||d);await submitPendingOnboarding();await bootAuthed()}
     else showAuthMsg("حساب ساخته شد. ایمیل تأیید را باز کن؛ بعد از ورود، درخواستت برای تأیید ادمین نمایش داده می‌شود.",true)
