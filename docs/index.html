@@ -1,0 +1,1314 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>اسنپ‌پی — پشتیبانی تیکت</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700;800&display=swap');
+
+:root {
+  --green: #00b074;
+  --green-dark: #008f5e;
+  --green-light: #e6f9f3;
+  --green-mid: #b3eedd;
+  --sidebar-bg: #0f1923;
+  --sidebar-hover: #1a2d3d;
+  --sidebar-active: #00b074;
+  --sidebar-text: #94a3b8;
+  --sidebar-head: #64748b;
+  --white: #ffffff;
+  --bg: #f1f5f9;
+  --border: #e2e8f0;
+  --text: #0f172a;
+  --text-mid: #475569;
+  --text-light: #94a3b8;
+  --warning-bg: #fefce8;
+  --warning-border: #fde047;
+  --warning-text: #713f12;
+  --card-shadow: 0 1px 3px rgba(0,0,0,0.07), 0 4px 12px rgba(0,0,0,0.04);
+  --radius: 14px;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: 'Vazirmatn', 'Segoe UI', Tahoma, Arial, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* ─── HEADER ──────────────────────────────────── */
+header {
+  background: var(--sidebar-bg);
+  height: 60px;
+  display: flex;
+  align-items: center;
+  padding: 0 20px;
+  gap: 14px;
+  flex-shrink: 0;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  border-bottom: 1px solid #1e2f40;
+}
+
+.logo-pill {
+  background: var(--green);
+  color: white;
+  font-weight: 800;
+  font-size: 13px;
+  padding: 5px 12px;
+  border-radius: 8px;
+  letter-spacing: 0.3px;
+}
+
+header h1 {
+  font-size: 15px;
+  font-weight: 600;
+  color: #e2e8f0;
+}
+
+.header-badge {
+  background: #1a2d3d;
+  color: var(--green);
+  font-size: 11px;
+  font-weight: 600;
+  padding: 3px 10px;
+  border-radius: 20px;
+  border: 1px solid #2d4a60;
+}
+
+.header-right {
+  margin-right: auto;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.header-stat {
+  color: var(--sidebar-text);
+  font-size: 12px;
+}
+
+/* ─── LAYOUT ──────────────────────────────────── */
+.container {
+  display: flex;
+  flex: 1;
+  height: calc(100vh - 60px);
+  overflow: hidden;
+}
+
+/* ─── SIDEBAR ──────────────────────────────────── */
+.sidebar {
+  width: 270px;
+  background: var(--sidebar-bg);
+  display: flex;
+  flex-direction: column;
+  flex-shrink: 0;
+  border-left: 1px solid #1e2f40;
+}
+
+.search-wrap {
+  padding: 14px 12px 10px;
+  flex-shrink: 0;
+}
+
+.search-wrap input {
+  width: 100%;
+  background: #1a2d3d;
+  border: 1px solid #2d4a60;
+  color: #e2e8f0;
+  padding: 9px 36px 9px 12px;
+  border-radius: 10px;
+  font-size: 13px;
+  font-family: inherit;
+  direction: rtl;
+  outline: none;
+  transition: border-color 0.15s;
+}
+.search-wrap input::placeholder { color: #4a6278; }
+.search-wrap input:focus { border-color: var(--green); }
+
+.search-icon {
+  position: relative;
+}
+.search-icon::after {
+  content: '🔍';
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 12px;
+  pointer-events: none;
+}
+
+.sidebar-scroll {
+  flex: 1;
+  overflow-y: auto;
+  padding: 4px 8px 20px;
+  scrollbar-width: thin;
+  scrollbar-color: #2d4a60 transparent;
+}
+.sidebar-scroll::-webkit-scrollbar { width: 4px; }
+.sidebar-scroll::-webkit-scrollbar-track { background: transparent; }
+.sidebar-scroll::-webkit-scrollbar-thumb { background: #2d4a60; border-radius: 4px; }
+
+.category-group { margin-bottom: 6px; }
+
+.group-label {
+  font-size: 10px;
+  font-weight: 700;
+  color: var(--sidebar-head);
+  padding: 10px 10px 5px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.cat-btn {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  text-align: right;
+  padding: 8px 10px;
+  border: none;
+  background: none;
+  cursor: pointer;
+  border-radius: 8px;
+  font-size: 12.5px;
+  color: var(--sidebar-text);
+  transition: all 0.12s;
+  font-family: inherit;
+  line-height: 1.5;
+  gap: 8px;
+}
+.cat-btn:hover {
+  background: var(--sidebar-hover);
+  color: #e2e8f0;
+}
+.cat-btn.active {
+  background: #0d2d1f;
+  color: var(--green);
+  font-weight: 600;
+  border-right: 3px solid var(--green);
+  padding-right: 7px;
+}
+
+.sidebar-footer {
+  padding: 12px 16px;
+  border-top: 1px solid #1e2f40;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.sidebar-footer a {
+  font-size: 11px;
+  color: #4a6278;
+  text-decoration: none;
+  transition: color 0.15s;
+}
+.sidebar-footer a:hover { color: var(--green); }
+
+/* ─── MAIN ──────────────────────────────────── */
+.main {
+  flex: 1;
+  overflow-y: auto;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+/* ─── PLACEHOLDER ──────────────────────────────────── */
+.placeholder {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  color: var(--text-light);
+  text-align: center;
+  padding: 40px;
+}
+.placeholder-icon {
+  width: 80px; height: 80px;
+  background: var(--green-light);
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 36px;
+}
+.placeholder h2 { font-size: 18px; color: var(--text-mid); font-weight: 600; }
+.placeholder p { font-size: 14px; color: var(--text-light); max-width: 280px; line-height: 1.8; }
+.placeholder-tips {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  width: 100%;
+  max-width: 360px;
+  margin-top: 12px;
+}
+.tip-item {
+  background: white;
+  border-radius: 10px;
+  padding: 10px 14px;
+  font-size: 12px;
+  color: var(--text-mid);
+  border: 1px solid var(--border);
+  text-align: right;
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+/* ─── RESPONSE BOX ──────────────────────────────────── */
+.response-box { display: none; flex-direction: column; gap: 14px; }
+.response-box.visible { display: flex; }
+
+/* ─── TOPIC HEADER ──────────────────────────────────── */
+.topic-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+.topic-title {
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--text);
+}
+.topic-breadcrumb {
+  font-size: 12px;
+  color: var(--text-light);
+  margin-top: 2px;
+}
+
+/* ─── NOTES CARD ──────────────────────────────────── */
+.notes-card {
+  background: var(--warning-bg);
+  border: 1px solid var(--warning-border);
+  border-radius: var(--radius);
+  padding: 12px 16px;
+  font-size: 13px;
+  color: var(--warning-text);
+  line-height: 1.8;
+  display: flex;
+  gap: 10px;
+  align-items: flex-start;
+}
+.notes-icon { font-size: 16px; flex-shrink: 0; margin-top: 1px; }
+
+/* ─── CUSTOM FIELDS ──────────────────────────────────── */
+.custom-card {
+  background: white;
+  border-radius: var(--radius);
+  box-shadow: var(--card-shadow);
+  border: 1px solid var(--border);
+  overflow: hidden;
+  display: none;
+}
+.custom-card.visible { display: block; }
+.custom-card-header {
+  background: #f8fafc;
+  padding: 12px 16px;
+  font-size: 12px;
+  color: var(--text-mid);
+  font-weight: 600;
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.custom-card-body {
+  padding: 16px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+.field-group { display: flex; flex-direction: column; gap: 5px; }
+.field-group.full { grid-column: 1 / -1; }
+.field-group label {
+  font-size: 11.5px;
+  font-weight: 600;
+  color: var(--text-mid);
+}
+.field-group input {
+  padding: 9px 12px;
+  border: 1.5px solid var(--border);
+  border-radius: 9px;
+  font-family: inherit;
+  font-size: 13px;
+  direction: rtl;
+  outline: none;
+  transition: border-color 0.15s, box-shadow 0.15s;
+  color: var(--text);
+  background: #fafafa;
+}
+.field-group input:focus {
+  border-color: var(--green);
+  box-shadow: 0 0 0 3px rgba(0,176,116,0.12);
+  background: white;
+}
+.apply-btn {
+  background: var(--green);
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 9px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  font-family: inherit;
+  transition: all 0.15s;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin: 0 16px 16px;
+}
+.apply-btn:hover { background: var(--green-dark); transform: translateY(-1px); }
+.apply-btn:active { transform: translateY(0); }
+
+/* ─── RESPONSE CARD ──────────────────────────────────── */
+.response-card {
+  background: white;
+  border-radius: var(--radius);
+  box-shadow: var(--card-shadow);
+  border: 1px solid var(--border);
+  overflow: hidden;
+}
+.card-header {
+  background: #f8fafc;
+  padding: 12px 16px;
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+}
+.card-header-left {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 12px;
+  color: var(--text-mid);
+  font-weight: 600;
+}
+.char-count {
+  font-size: 11px;
+  color: var(--text-light);
+  background: var(--bg);
+  padding: 2px 8px;
+  border-radius: 20px;
+}
+
+.copy-btn {
+  background: var(--green);
+  color: white;
+  border: none;
+  padding: 7px 18px;
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  font-family: inherit;
+  transition: all 0.15s;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.copy-btn:hover { background: var(--green-dark); }
+.copy-btn.copied {
+  background: #0ea5e9;
+  transform: scale(0.97);
+}
+
+.response-text {
+  padding: 20px;
+  font-size: 14px;
+  line-height: 2.1;
+  white-space: pre-wrap;
+  color: var(--text);
+  direction: rtl;
+  min-height: 80px;
+}
+
+/* ─── LINKS CARD ──────────────────────────────────── */
+.links-card {
+  background: white;
+  border-radius: var(--radius);
+  box-shadow: var(--card-shadow);
+  border: 1px solid var(--border);
+  overflow: hidden;
+}
+.links-header {
+  background: #f8fafc;
+  padding: 12px 16px;
+  border-bottom: 1px solid var(--border);
+  font-size: 12px;
+  color: var(--text-mid);
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.link-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 11px 16px;
+  border-bottom: 1px solid #f1f5f9;
+  font-size: 13px;
+  transition: background 0.12s;
+}
+.link-item:last-child { border-bottom: none; }
+.link-item:hover { background: #f8fafc; }
+.link-label {
+  color: var(--text);
+  font-weight: 500;
+  min-width: 140px;
+}
+.link-url {
+  color: var(--green-dark);
+  text-decoration: none;
+  font-size: 12px;
+  direction: ltr;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.link-url:hover { text-decoration: underline; }
+.link-open-btn {
+  margin-right: auto;
+  background: var(--green-light);
+  color: var(--green-dark);
+  border: none;
+  padding: 4px 10px;
+  border-radius: 6px;
+  font-size: 11px;
+  font-weight: 600;
+  cursor: pointer;
+  font-family: inherit;
+  text-decoration: none;
+  display: inline-block;
+  flex-shrink: 0;
+  transition: background 0.12s;
+}
+.link-open-btn:hover { background: var(--green-mid); }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="logo-pill">اسنپ‌پی</div>
+  <h1>ابزار پاسخ سریع تیکت</h1>
+  <div class="header-badge">پشتیبانی پذیرندگان</div>
+  <div class="header-right">
+    <span class="header-stat" id="template-count"></span>
+  </div>
+</header>
+
+<div class="container">
+
+  <!-- ─── SIDEBAR ─── -->
+  <div class="sidebar">
+    <div class="search-wrap">
+      <div class="search-icon" style="position:relative">
+        <input type="text" id="searchInput" placeholder="جستجو در قالب‌ها..." oninput="filterCategories()" />
+        <span style="position:absolute;right:10px;top:50%;transform:translateY(-50%);font-size:12px;pointer-events:none">🔍</span>
+      </div>
+    </div>
+
+    <div class="sidebar-scroll">
+
+      <div class="category-group" data-group="مالی">
+        <div class="group-label">💰 مالی — تسویه</div>
+        <button class="cat-btn" onclick="show('paid-done', this)">✅ واریزی انجام شده (با شماره مرجع)</button>
+        <button class="cat-btn" onclick="show('paid-processing', this)">⏳ واریزی در پردازش بانک</button>
+        <button class="cat-btn" onclick="show('payment-unified', this)">🔄 واریز یکپارچه — جدید ۱۴۰۵</button>
+        <button class="cat-btn" onclick="show('payment-returned', this)">↩️ واریزی برگشت خورده</button>
+        <button class="cat-btn" onclick="show('settle-2month', this)">📅 تسویه دوماه</button>
+        <button class="cat-btn" onclick="show('settle-4part', this)">📅 تسویه چهار قسطه</button>
+        <button class="cat-btn" onclick="show('settle-detail', this)">🔢 ریز تراکنش / مغایرت تسویه</button>
+        <button class="cat-btn" onclick="show('no-sales', this)">🚫 فروشی ثبت نشده</button>
+        <button class="cat-btn" onclick="show('cancel-more-than-sale', this)">🚫 لغو بیشتر از فروش</button>
+        <button class="cat-btn" onclick="show('refund-72h', this)">⏱️ بازپرداخت بعد از لغو (۷۲ ساعت)</button>
+        <button class="cat-btn" onclick="show('iban-change', this)">🏦 تغییر شماره شبا</button>
+        <button class="cat-btn" onclick="show('contract-view', this)">📄 مشاهده قرارداد / تسویه</button>
+        <button class="cat-btn" onclick="show('contract-pending', this)">📋 الحاقیه تایید نشده</button>
+        <button class="cat-btn" onclick="show('special-contract', this)">📝 قرارداد ویژه</button>
+        <button class="cat-btn" onclick="show('tax-invoice', this)">🧾 مالیات / فاکتور</button>
+      </div>
+
+      <div class="category-group" data-group="سفارش">
+        <div class="group-label">📦 سفارش</div>
+        <button class="cat-btn" onclick="show('cancel-order', this)">لغو سفارش</button>
+        <button class="cat-btn" onclick="show('cancel-woo', this)">لغو سفارش ووکامرس</button>
+        <button class="cat-btn" onclick="show('partial-return', this)">مرجوعی جزئی (ووکامرس)</button>
+        <button class="cat-btn" onclick="show('cancel-rate', this)">⚠️ درصد لغو بالا</button>
+      </div>
+
+      <div class="category-group" data-group="فروشگاه">
+        <div class="group-label">🏪 فروشگاه در اپ</div>
+        <button class="cat-btn" onclick="show('store-activation', this)">نمایش فروشگاه در اپ</button>
+        <button class="cat-btn" onclick="show('store-removed', this)">حذف فروشگاه از اپ</button>
+        <button class="cat-btn" onclick="show('store-removed-criteria', this)">📊 شرایط حذف / معیار نمایش</button>
+        <button class="cat-btn" onclick="show('product-search', this)">محصول در جستجو نمایش نمی‌دهد</button>
+        <button class="cat-btn" onclick="show('ip-whitelist', this)">🌐 وایت‌لیست IP برای سرچ</button>
+      </div>
+
+      <div class="category-group" data-group="فنی">
+        <div class="group-label">⚙️ فنی</div>
+        <button class="cat-btn" onclick="show('plugin-update', this)">افزونه / پلاگین</button>
+        <button class="cat-btn" onclick="show('callback-change', this)">تغییر کالبک / دامنه</button>
+        <button class="cat-btn" onclick="show('foreign-host', this)">هاست خارج از ایران</button>
+        <button class="cat-btn" onclick="show('ip-issue', this)">مشکل IP / دسترسی فنی</button>
+      </div>
+
+      <div class="category-group" data-group="تبلیغات">
+        <div class="group-label">📢 تبلیغات</div>
+        <button class="cat-btn" onclick="show('ads', this)">تبلیغات / کمپین / صفحه اول</button>
+        <button class="cat-btn" onclick="show('banner-design', this)">طراحی بنر تبلیغاتی</button>
+      </div>
+
+      <div class="category-group" data-group="عمومی">
+        <div class="group-label">📋 عمومی</div>
+        <button class="cat-btn" onclick="show('reporting', this)">گزارش‌گیری / تراکنش‌ها</button>
+        <button class="cat-btn" onclick="show('account-manager', this)">اکانت منیجر</button>
+        <button class="cat-btn" onclick="show('customer-credit', this)">اعتبار مشتری</button>
+        <button class="cat-btn" onclick="show('register-app', this)">ثبت‌نام در اپ اسنپ‌پی</button>
+        <button class="cat-btn" onclick="show('duplicate', this)">تیکت تکراری</button>
+        <button class="cat-btn" onclick="show('no-reply-close', this)">🔒 بستن تیکت — عدم پاسخگویی</button>
+        <button class="cat-btn" onclick="show('terminate', this)">❌ فسخ قرارداد</button>
+      </div>
+
+    </div>
+
+    <div class="sidebar-footer">
+      <span style="font-size:11px;color:#2d4a60">© اسنپ‌پی</span>
+      <a href="https://academy.snapppay.ir" target="_blank" style="margin-right:auto">آکادمی ↗</a>
+      <a href="https://crm.snapppay.ir" target="_blank">CRM ↗</a>
+    </div>
+  </div>
+
+  <!-- ─── MAIN CONTENT ─── -->
+  <div class="main" id="main-area">
+
+    <!-- Placeholder -->
+    <div class="placeholder" id="placeholder">
+      <div class="placeholder-icon">💬</div>
+      <h2>یک موضوع تیکت انتخاب کنید</h2>
+      <p>از منوی سمت راست، موضوع تیکت را انتخاب کنید تا متن پاسخ آماده شود</p>
+      <div class="placeholder-tips">
+        <div class="tip-item">🔍 <span>با جستجو سریع‌تر قالب مورد نظر رو پیدا کنید</span></div>
+        <div class="tip-item">📋 <span>بعد از کپی، مستقیم در نوت تیکت پیست کنید</span></div>
+        <div class="tip-item">✏️ <span>فیلدهای داینامیک (مبلغ، شبا...) قبل از کپی پر کنید</span></div>
+      </div>
+    </div>
+
+    <!-- Response Area -->
+    <div class="response-box" id="response-box">
+
+      <!-- Topic Header -->
+      <div class="topic-header">
+        <div>
+          <div class="topic-title" id="topic-title">موضوع</div>
+          <div class="topic-breadcrumb" id="topic-breadcrumb"></div>
+        </div>
+      </div>
+
+      <!-- Notes -->
+      <div class="notes-card" id="notes-card" style="display:none">
+        <span class="notes-icon">💡</span>
+        <span id="notes-text"></span>
+      </div>
+
+      <!-- Custom Fields -->
+      <div class="custom-card" id="custom-fields">
+        <div class="custom-card-header">✏️ اطلاعات را وارد کنید</div>
+        <div class="custom-card-body" id="fields-grid"></div>
+        <button class="apply-btn" onclick="applyCustom()">⚡ به‌روزرسانی متن</button>
+      </div>
+
+      <!-- Response Text -->
+      <div class="response-card">
+        <div class="card-header">
+          <div class="card-header-left">
+            <span>📄 متن پاسخ</span>
+            <span class="char-count" id="char-count">۰ کاراکتر</span>
+          </div>
+          <button class="copy-btn" id="copy-btn" onclick="copyResponse()">
+            <span>📋</span> <span id="copy-label">کپی متن</span>
+          </button>
+        </div>
+        <div class="response-text" id="response-text"></div>
+      </div>
+
+      <!-- Links -->
+      <div class="links-card" id="links-card" style="display:none">
+        <div class="links-header">🔗 لینک‌های مرتبط</div>
+        <div id="links-list"></div>
+      </div>
+
+    </div>
+
+  </div><!-- /main -->
+</div><!-- /container -->
+
+<script>
+const SIGN = "\nبا سپاس،\nپشتیبانی پذیرندگان اسنپ‌پی";
+const GREET = "با سلام و احترام،\n";
+
+const responses = {
+
+  'paid-done': {
+    topic: 'واریزی انجام شده',
+    category: '💰 مالی',
+    note: 'وقتی واریزی رفته و شماره مرجع داری — پذیرنده میگه نرسیده.',
+    customFields: [
+      { id: 'amount', label: 'مبلغ (ریال)', placeholder: '432,827,850', full: false },
+      { id: 'ref', label: 'شماره مرجع', placeholder: '/140503050782276517', full: false },
+      { id: 'iban', label: 'آخر شبا', placeholder: '07009', full: false },
+      { id: 'bank', label: 'نام بانک', placeholder: 'بانک ملت', full: false },
+      { id: 'name', label: 'نام صاحب حساب', placeholder: 'مسعود اهنگرسریزدی', full: true },
+      { id: 'extra', label: 'توضیح اضافه (اختیاری)', placeholder: 'مثلاً: شامل مبلغ عقب‌افتاده فروردین نیز می‌باشد', full: true },
+    ],
+    getText(f) {
+      return `${GREET}پیرو بررسی انجام‌شده، واریز مبلغ حدود ${f.amount||'...'} ریال به شماره شبا IR***************${f.iban||'...'} نزد بانک ${f.bank||'...'} و به نام ${f.name||'...'} از طرف اسنپ‌پی (اطلس تجارت نوین دیبا) انجام شده است. شماره مرجع: ${f.ref||'...'}${f.extra ? '\n'+f.extra : ''}
+
+لطفاً حساب خود را بررسی فرمایید.${SIGN}`;
+    },
+    links: []
+  },
+
+  'paid-processing': {
+    topic: 'واریزی در پردازش بانک',
+    category: '💰 مالی',
+    note: 'واریزی فرستادیم ولی بانک هنوز تایید نداده — پذیرنده باید از بانک خودش پیگیری کنه.',
+    customFields: [
+      { id: 'amount', label: 'مبلغ (ریال)', placeholder: '1,011,019,671', full: false },
+      { id: 'iban', label: 'آخر شبا', placeholder: '47601', full: false },
+      { id: 'bank', label: 'نام بانک', placeholder: 'بانک پارسیان', full: false },
+      { id: 'name', label: 'نام صاحب حساب', placeholder: 'زهرا فیاضی', full: true },
+    ],
+    getText(f) {
+      return `${GREET}پیرو بررسی انجام‌شده، واریزی شما به مبلغ حدود ${f.amount||'...'} ریال از سمت ما به شماره شبا IR***************${f.iban||'...'} نزد بانک ${f.bank||'...'} و به نام ${f.name||'...'} انجام و جهت پردازش به بانک ارجاع شده است.
+
+با این حال، تا این لحظه هیچ‌گونه تأییدیه/استعلامی از سوی بانک مبنی بر نهایی شدن تراکنش و واریز قطعی به حساب مقصد به ما اعلام نشده است. لذا جهت اطلاع از وضعیت نهایی واریز، لطفاً از طریق بانک خود (شعبه یا پشتیبانی) پیگیری فرمایید.${SIGN}`;
+    },
+    links: []
+  },
+
+  'payment-unified': {
+    topic: 'واریز یکپارچه (تجمیعی) — تغییر جدید',
+    category: '💰 مالی',
+    note: 'از خرداد ۱۴۰۵: همه واریزی‌ها در یک تراکنش تجمیعی. مبلغ و زمان‌بندی تغییری نکرده.',
+    getText() {
+      return `${GREET}در راستای ساده‌تر شدن فرآیند تسویه‌حساب، از این پس تمامی مبالغ قابل پرداخت شما به‌صورت تجمیعی و تنها در یک واریز انجام می‌شود.
+
+در گذشته ممکن بود مبالغ طی چند واریز جداگانه به حساب شما رسیده باشد؛ این تغییر به منظور شفافیت بیشتر و سهولت تطبیق واریزی‌ها با گزارش‌های مالی صورت گرفته است.
+
+این تغییر هیچ تأثیری بر مبلغ یا زمان‌بندی تسویه شما ندارد و تمامی مبالغ قابل پرداخت همچنان به همان میزان واریز خواهد شد.${SIGN}`;
+    },
+    links: [{ label: 'اطلاعیه تغییر واریز', url: 'https://academy.snapppay.ir/2026/06/27/payment-update/' }]
+  },
+
+  'payment-returned': {
+    topic: 'واریزی برگشت خورده',
+    category: '💰 مالی',
+    note: '',
+    getText() {
+      return `${GREET}با توجه به اختلال پیش‌آمده، در حال پیگیری و رفع مشکل هستیم. ضمن عذرخواهی بابت تأخیر ایجادشده، خواهشمند است اطلاع داشته باشید که واریزی مربوطه طی ۲ الی ۳ روز آینده انجام خواهد شد. از صبر و شکیبایی شما سپاسگزاریم.${SIGN}`;
+    },
+    links: []
+  },
+
+  'settle-2month': {
+    topic: 'تسویه دوماه — توضیح زمان‌بندی',
+    category: '💰 مالی',
+    note: 'برای پذیرندگانی که نمیدونن چرا واریزی نشده — قرارداد ۱۰۰٪ دوماه بعد.',
+    customFields: [
+      { id: 'sale_month', label: 'ماه فروش', placeholder: 'اردیبهشت', full: false },
+      { id: 'pay_date', label: 'تاریخ واریز', placeholder: '۵ تیرماه', full: false },
+    ],
+    getText(f) {
+      return `${GREET}نحوه تسویه حساب شما مطابق قرارداد، به صورت ۱۰۰٪ دو ماه بعد می‌باشد.
+
+به عنوان مثال، فروش‌های انجام‌شده در ماه ${f.sale_month||'...'} به صورت کامل در تاریخ ${f.pay_date||'...'} به حساب شما واریز خواهد شد.
+
+جهت کسب اطلاعات بیشتر لطفاً مقاله زیر را مطالعه فرمایید:
+https://l.snpy.ir/tgzo9${SIGN}`;
+    },
+    links: [{ label: 'راهنمای محاسبه فروش و کمیسیون', url: 'https://l.snpy.ir/tgzo9' }]
+  },
+
+  'settle-4part': {
+    topic: 'تسویه چهار قسطه',
+    category: '💰 مالی',
+    note: 'پذیرندگانی که قرارداد ۴ قسطه ماهانه دارن.',
+    customFields: [
+      { id: 'amount', label: 'مبلغ واریزی (اختیاری)', placeholder: '107,339,086', full: false },
+      { id: 'iban', label: 'آخر شبا (اختیاری)', placeholder: '20965', full: false },
+      { id: 'bank', label: 'نام بانک (اختیاری)', placeholder: 'بانک سپه', full: false },
+      { id: 'name', label: 'نام صاحب حساب (اختیاری)', placeholder: 'هیوا تجارت حامی', full: true },
+    ],
+    getText(f) {
+      const payInfo = f.amount ? `\nپیرو بررسی انجام‌شده، واریز مبلغ حدود ${f.amount} ریال به شماره شبا IR***************${f.iban||'...'} نزد بانک ${f.bank||'...'} و به نام ${f.name||'...'} از طرف اسنپ‌پی (اطلس تجارت نوین دیبا) انجام شده است.\n\nلطفاً حساب خود را بررسی فرمایید.` : '';
+      return `${GREET}طبق قرارداد شما تسویه به صورت چهار قسطه ماهانه می‌باشد و اقساط را به ترتیب در ۴ ماه متوالی دریافت خواهید کرد.${payInfo}${SIGN}`;
+    },
+    links: []
+  },
+
+  'settle-detail': {
+    topic: 'ریز تراکنش / مغایرت تسویه',
+    category: '💰 مالی',
+    note: 'قبل از ارسال: اطلاعات را از Settlement Detail بررسی کن — NMV، کمیسیون، لغوها و Net Payable را وارد کن.',
+    customFields: [
+      { id: 'period', label: 'دوره تسویه', placeholder: '۱۴۰۵/۰۲', full: false },
+      { id: 'sale', label: 'فروش (ریال)', placeholder: '۳,۹۹۴,۷۹۰,۰۰۰', full: false },
+      { id: 'cancel', label: 'لغو همین دوره', placeholder: '(۱,۳۴۶,۵۴۰,۰۰۰)', full: false },
+      { id: 'prior_cancel', label: 'لغو دوره‌های قبل', placeholder: '(۹۱۷,۶۶۰,۰۰۰)', full: false },
+      { id: 'commission', label: 'کمیسیون + مالیات', placeholder: '(۲۲۸,۴۳۷,۸۸۰)', full: false },
+      { id: 'net', label: 'مبلغ واریزی نهایی', placeholder: '۱,۵۰۲,۱۵۲,۱۲۰', full: false },
+    ],
+    getText(f) {
+      return `${GREET}با توجه به بررسی اطلاعات تسویه شما در دوره ${f.period || '...'} محاسبات به شرح زیر می‌باشد:
+
+- فروش: ${f.sale || '...'}
+- لغو همین دوره: ${f.cancel || '...'}
+- لغو دوره‌های قبل: ${f.prior_cancel || '...'}
+- کمیسیون + مالیات: ${f.commission || '...'}
+- مبلغ واریزی: ${f.net || '...'}
+
+دلیل اختلاف با رقم مدنظر شما، کسر لغوهای دوره‌های قبلی می‌باشد که از مبلغ تسویه این دوره کسر شده است.
+در صورتی که همچنان مغایرت مشاهده می‌کنید، لطفاً گردش حساب بانکی مربوطه را ارسال فرمایید.${SIGN}`;
+    },
+    links: []
+  },
+
+  'no-sales': {
+    topic: 'فروشی در این دوره ثبت نشده',
+    category: '💰 مالی',
+    note: 'بررسی کردیم، در بازه مورد نظر تراکنشی ثبت نشده.',
+    getText() {
+      return `${GREET}طبق بررسی‌های انجام‌شده، در بازه موردنظر فروش یا تراکنشی برای حساب شما ثبت نشده است؛ به همین دلیل واریزی برای شما انجام نشده است.${SIGN}`;
+    },
+    links: []
+  },
+
+  'cancel-more-than-sale': {
+    topic: 'لغو بیشتر از فروش — واریزی نیست',
+    category: '💰 مالی',
+    note: 'مبلغ کنسلی‌های برگشتی از فروش بیشتر بوده.',
+    getText() {
+      return `${GREET}متأسفانه واریزی‌ای بابت این دوره انجام نخواهد شد، به دلیل اینکه مبلغ لغوهای عودت‌شده به شما از طرف اسنپ‌پی از مبلغ فروش بیشتر بوده است.${SIGN}`;
+    },
+    links: []
+  },
+
+  'refund-72h': {
+    topic: 'بازپرداخت بعد از لغو (۷۲ ساعت)',
+    category: '💰 مالی',
+    note: 'پذیرنده میگه لغو کرده ولی پول برنگشته.',
+    getText() {
+      return `${GREET}معمولاً پس از لغو سفارش، مبلغ طی ۷۲ ساعت کاری به حساب شما واریز خواهد شد.${SIGN}`;
+    },
+    links: []
+  },
+
+  'iban-change': {
+    topic: 'تغییر شماره شبا',
+    category: '💰 مالی',
+    note: '',
+    getText() {
+      return `${GREET}جهت تغییر شماره شبا، لطفاً فرم زیر را تکمیل و ارسال فرمایید:
+https://survey.porsline.ir/s/fPHVq9qz${SIGN}`;
+    },
+    links: [{ label: 'فرم تغییر شبا', url: 'https://survey.porsline.ir/s/fPHVq9qz' }]
+  },
+
+  'contract-view': {
+    topic: 'مشاهده قرارداد / تسویه',
+    category: '💰 مالی',
+    note: 'پذیرنده باید با نام کاربری اصلی (نه -report) وارد شود.',
+    getText() {
+      return `${GREET}جهت مشاهده قرارداد و اطلاعات تسویه، لطفاً با نام کاربری و رمز عبور اولیه‌ای که هنگام ثبت‌نام دریافت کرده‌اید (نه حساب گزارش‌گیری) وارد یکی از پورتال‌های زیر شوید:
+- portal.snapppay.ir
+- merchant.snapppay.ir${SIGN}`;
+    },
+    links: [
+      { label: 'پورتال اصلی', url: 'https://portal.snapppay.ir' },
+      { label: 'مرچنت پورتال', url: 'https://merchant.snapppay.ir' }
+    ]
+  },
+
+  'contract-pending': {
+    topic: 'الحاقیه قرارداد تایید نشده',
+    category: '💰 مالی',
+    note: 'پذیرنده الحاقیه جدید رو تایید نکرده — تا تایید نشه تسویه قدیم اعمال میشه.',
+    getText() {
+      return `${GREET}شما هنوز الحاقیه قرارداد جدید را تأیید نکرده‌اید و در حال حاضر تغییری در شرایط تسویه اعمال نشده است. در صورت هرگونه تغییر، مراتب متعاقباً اطلاع‌رسانی خواهد شد.
+
+جهت مشاهده قرارداد و نوع تسویه، خواهشمند است با حساب کاربری اصلی خود (که در زمان ثبت‌نام تعریف کرده‌اید و معمولاً ایمیل شماست) وارد شوید. توجه داشته باشید که برای مشاهده این موارد، امکان ورود با حساب گزارش‌گیری (xxxxx-report) وجود ندارد.
+
+۱. اگر از طریق پرتال ثبت‌نام کرده‌اید: portal.snapppay.ir
+۲. اگر از طریق سامانه مرچنت ثبت‌نام کرده‌اید: merchant.snapppay.ir${SIGN}`;
+    },
+    links: [
+      { label: 'پورتال', url: 'https://portal.snapppay.ir' },
+      { label: 'مرچنت', url: 'https://merchant.snapppay.ir' }
+    ]
+  },
+
+  'special-contract': {
+    topic: 'قرارداد ویژه',
+    category: '💰 مالی',
+    note: '',
+    getText() {
+      return `${GREET}جهت درخواست قرارداد ویژه، لطفاً فرم زیر را تکمیل فرمایید:
+https://l.snpy.ir/m2w1g${SIGN}`;
+    },
+    links: [{ label: 'فرم قرارداد ویژه', url: 'https://l.snpy.ir/m2w1g' }]
+  },
+
+  'tax-invoice': {
+    topic: 'مالیات / فاکتور',
+    category: '💰 مالی',
+    note: 'اسنپ‌پی واسط خریده — فاکتور برای مشتری نهایی صادر بشه نه اسنپ‌پی.',
+    getText() {
+      return `${GREET}باتوجه به اینکه اسنپ‌پی شرکت واسط خرید است، فاکتور باید برای مشتری نهایی صادر شود و از صدور فاکتور به نام اسنپ‌پی خودداری فرمایید، چون توسط تیم مالی اسنپ‌پی تأیید نخواهد شد.
+
+برای اطلاعات بیشتر لطفاً آکادمی اسنپ‌پی را مطالعه فرمایید:
+https://academy.snapppay.ir/${SIGN}`;
+    },
+    links: [
+      { label: 'آکادمی اسنپ‌پی', url: 'https://academy.snapppay.ir/' },
+      { label: 'الزامات صدور صورتحساب (سامانه مودیان)', url: 'https://l.snpy.ir/uu5gw' }
+    ]
+  },
+
+  'cancel-order': {
+    topic: 'لغو سفارش',
+    category: '📦 سفارش',
+    note: '',
+    getText() {
+      return `${GREET}لغو سفارش می‌بایست از سمت پذیرنده انجام شود. جهت اطلاع از نحوه لغو سفارش، لطفاً ویدیوی آموزشی زیر را مشاهده فرمایید:
+https://www.aparat.com/v/kwuy8m7${SIGN}`;
+    },
+    links: [{ label: 'آموزش لغو سفارش', url: 'https://www.aparat.com/v/kwuy8m7' }]
+  },
+
+  'cancel-woo': {
+    topic: 'لغو سفارش ووکامرس',
+    category: '📦 سفارش',
+    note: 'مراحل باید دقیقاً به همین ترتیب انجام شود.',
+    getText() {
+      return `${GREET}جهت لغو سفارش در ووکامرس، لطفاً مراحل زیر را دنبال فرمایید:
+
+۱. وضعیت سفارش را به «در حال انجام» (Processing) تغییر دهید
+۲. سپس سفارش را لغو کنید
+۳. حدود ۳۰ ثانیه صبر کنید
+۴. نتیجه را در پنل گزارش‌گیری اسنپ‌پی بررسی کنید
+
+در صورت نیاز به به‌روزرسانی افزونه:
+https://l.snpy.ir/4iif7
+
+ویدیوی آموزشی:
+https://www.aparat.com/v/kwuy8m7${SIGN}`;
+    },
+    links: [
+      { label: 'آموزش لغو سفارش', url: 'https://www.aparat.com/v/kwuy8m7' },
+      { label: 'دانلود افزونه', url: 'https://l.snpy.ir/4iif7' }
+    ]
+  },
+
+  'partial-return': {
+    topic: 'مرجوعی جزئی (ووکامرس)',
+    category: '📦 سفارش',
+    note: '',
+    getText() {
+      return `${GREET}جهت انجام مرجوعی جزئی در ووکامرس، مراحل زیر را دنبال فرمایید:
+
+۱. وضعیت سفارش را به «در انتظار پرداخت» (Pending) تغییر دهید
+۲. از آیکون مداد (ویرایش) در کنار قیمت محصول استفاده کنید
+۳. مبلغ را ویرایش و محاسبه مجدد کنید
+۴. وضعیت سفارش را به «تکمیل شده» (Completed) تغییر دهید${SIGN}`;
+    },
+    links: []
+  },
+
+  'cancel-rate': {
+    topic: 'درصد لغو بالا',
+    category: '📦 سفارش',
+    note: 'درصد لغو باید زیر ۵٪ از کل سفارشات باشد.',
+    getText() {
+      return `${GREET}طبق شرایط قرارداد، نرخ لغو سفارشات می‌بایست کمتر از ۵٪ از کل سفارشات باشد. لطفاً نسبت به کاهش نرخ لغو اقدام فرمایید، در غیر این صورت ممکن است محدودیت‌هایی برای فروشگاه شما اعمال شود.${SIGN}`;
+    },
+    links: [{ label: 'راهکارهای کاهش لغو سفارش', url: 'https://l.snpy.ir/vvlbo' }]
+  },
+
+  'store-activation': {
+    topic: 'نمایش فروشگاه در اپ',
+    category: '🏪 فروشگاه',
+    note: 'بعد از تکمیل فرم، ۳ تا ۱۰ روز کاری طول می‌کشد.',
+    getText() {
+      return `${GREET}جهت نمایش فروشگاه در اپلیکیشن اسنپ‌پی، لطفاً فرم اطلاع‌رسانی فعال‌سازی را از لینک زیر تکمیل فرمایید. پس از تکمیل فرم، فروشگاه شما ظرف ۳ تا ۱۰ روز کاری در اپ نمایش داده خواهد شد:
+https://l.snpy.ir/i0a9e${SIGN}`;
+    },
+    links: [{ label: 'فرم فعال‌سازی درگاه', url: 'https://l.snpy.ir/i0a9e' }]
+  },
+
+  'store-removed': {
+    topic: 'حذف فروشگاه از اپ',
+    category: '🏪 فروشگاه',
+    note: 'بررسی حذف هر ماه انجام می‌شود.',
+    getText() {
+      return `${GREET}جهت اطلاع از دلایل حذف فروشگاه از اپلیکیشن و نحوه بازگشت، لطفاً مقاله زیر را مطالعه فرمایید:
+https://l.snpy.ir/gfccq${SIGN}`;
+    },
+    links: [{ label: 'راهنمای حذف از اپ', url: 'https://l.snpy.ir/gfccq' }]
+  },
+
+  'store-removed-criteria': {
+    topic: 'شرایط نمایش / حذف از اپ',
+    category: '🏪 فروشگاه',
+    note: 'شرط حداقل: ۴۰ سفارش تعدادی یا ۱۰۰ میلیون تومان در ماه — هر یک کافیه. بررسی ماهانه.',
+    getText() {
+      return `${GREET}جهت نمایش در اپلیکیشن اسنپ‌پی، دو شرط اصلی باید رعایت شود:
+
+۱. حداقل معیار سفارش ماهانه (یکی از دو شرط زیر کافیه):
+   - حداقل ۴۰ سفارش تعدادی در ماه
+   - یا حداقل ۱۰۰ میلیون تومان مبلغ کل سفارشات در ماه
+
+۲. رتبه عملکردی (گرید A تا E):
+   - گرید A یا B: تایید خودکار
+   - گرید C یا D: بررسی نرخ لغو، آپدیت سفارشات و تماس مشتریان
+   - گرید E: غیرفعال خودکار
+
+وضعیت پذیرندگان هر ماه بازبینی می‌شود و در صورت بهبود عملکرد، در دوره بعدی بازگشت ممکن است.${SIGN}`;
+    },
+    links: [{ label: 'شرایط فعال‌سازی در اپ', url: 'https://l.snpy.ir/74ni9' }]
+  },
+
+  'product-search': {
+    topic: 'محصول در جستجو نمایش نمی‌دهد',
+    category: '🏪 فروشگاه',
+    note: 'نیاز به نصب Search API / افزونه سرچ دارد.',
+    getText() {
+      return `${GREET}جهت نمایش محصولات در جستجوی اپلیکیشن اسنپ‌پی، لازم است افزونه جستجوی اسنپ‌پی (Search Plugin) را نصب و پیکربندی فرمایید. راهنمای کامل نصب در لینک زیر موجود است:
+https://academy.snapppay.ir/2026/05/04/search-plugin/${SIGN}`;
+    },
+    links: [
+      { label: 'افزونه سرچ اسنپ‌پی', url: 'https://l.snpy.ir/nqs4i' },
+      { label: 'راهنمای نام‌گذاری محصولات', url: 'https://l.snpy.ir/t3tpf' }
+    ]
+  },
+
+  'ip-whitelist': {
+    topic: 'وایت‌لیست IP برای سرچ',
+    category: '🏪 فروشگاه',
+    note: 'اگر ربات سرچ محصولات رو نمی‌خونه — باید این IPها رو در فایروال هاست وایت‌لیست کنن.',
+    getText() {
+      return `${GREET}جهت عملکرد صحیح ربات جستجوی اسنپ‌پی و نمایش محصولات در سرچ، لازم است آدرس‌های IP زیر را در فایروال یا تنظیمات امنیتی هاست خود وایت‌لیست نمایید:
+
+185.206.93.115
+185.206.94.25
+37.152.176.176
+188.121.106.231
+
+عدم وایت‌لیست این IPها ممکن است باعث قطع شدن نمایش محصولات در نتایج جستجوی اسنپ‌پی شود.${SIGN}`;
+    },
+    links: [
+      { label: 'آی‌پی چیست؟', url: 'https://l.snpy.ir/bqall' },
+      { label: 'نحوه دریافت و اعلام IP', url: 'https://l.snpy.ir/fzzzq' }
+    ]
+  },
+
+  'plugin-update': {
+    topic: 'افزونه / پلاگین',
+    category: '⚙️ فنی',
+    note: '',
+    getText() {
+      return `${GREET}جهت دریافت آخرین نسخه افزونه اسنپ‌پی و راهنمای نصب، لطفاً از لینک زیر اقدام فرمایید:
+https://l.snpy.ir/4iif7${SIGN}`;
+    },
+    links: [{ label: 'دانلود افزونه', url: 'https://l.snpy.ir/4iif7' }]
+  },
+
+  'callback-change': {
+    topic: 'تغییر کالبک / دامنه',
+    category: '⚙️ فنی',
+    note: '',
+    getText() {
+      return `${GREET}جهت تغییر آدرس کالبک یا دامنه وب‌سایت، لطفاً فرم زیر را تکمیل فرمایید:
+https://survey.porsline.ir/s/oHWZAks9${SIGN}`;
+    },
+    links: [
+      { label: 'فرم تغییر کالبک', url: 'https://survey.porsline.ir/s/oHWZAks9' },
+      { label: 'کالبک چیست؟', url: 'https://l.snpy.ir/gvqei' },
+      { label: 'خطاهای رایج کالبک', url: 'https://l.snpy.ir/z8ekj' },
+      { label: 'تغییر CMS', url: 'https://l.snpy.ir/ew1by' }
+    ]
+  },
+
+  'foreign-host': {
+    topic: 'هاست خارج از ایران',
+    category: '⚙️ فنی',
+    note: '',
+    getText() {
+      return `${GREET}در حال حاضر اسنپ‌پی ایران‌اکسس نمی‌باشد و امکان استفاده از هاست‌های خارج از ایران وجود ندارد.${SIGN}`;
+    },
+    links: []
+  },
+
+  'ip-issue': {
+    topic: 'مشکل IP / دسترسی فنی',
+    category: '⚙️ فنی',
+    note: '',
+    getText() {
+      return `${GREET}جهت پیگیری مشکلات مربوط به IP و دسترسی فنی، لطفاً از طریق بخش فنی تیکت ثبت فرمایید تا تیم فنی پیگیری لازم را انجام دهد.${SIGN}`;
+    },
+    links: []
+  },
+
+  'ads': {
+    topic: 'تبلیغات / کمپین / صفحه اول',
+    category: '📢 تبلیغات',
+    note: '',
+    getText() {
+      return `${GREET}جهت استفاده از خدمات تبلیغاتی اسنپ‌پی، دو روش در اختیار شما قرار دارد:
+
+۱. تبلیغات بنری (پنل ادز):
+https://www.aparat.com/v/nhdg9eo
+
+۲. تبلیغات جستجو (سرچ ادز):
+https://www.aparat.com/v/teufot3${SIGN}`;
+    },
+    links: [
+      { label: 'آموزش بنر / پنل ادز', url: 'https://www.aparat.com/v/nhdg9eo' },
+      { label: 'آموزش سرچ ادز', url: 'https://www.aparat.com/v/teufot3' }
+    ]
+  },
+
+  'banner-design': {
+    topic: 'طراحی بنر تبلیغاتی',
+    category: '📢 تبلیغات',
+    note: 'بعد از طراحی، بنر باید از طریق تیکت ارسال شود.',
+    getText() {
+      return `${GREET}جهت مشاهده راهنما و ابعاد بنرهای تبلیغاتی اسنپ‌پی، لطفاً لینک زیر را مطالعه فرمایید و پس از آماده‌سازی بنر، آن را از طریق تیکت ارسال نمایید:
+https://l.snpy.ir/oc3qi${SIGN}`;
+    },
+    links: [{ label: 'راهنمای طراحی بنر', url: 'https://l.snpy.ir/oc3qi' }]
+  },
+
+  'reporting': {
+    topic: 'گزارش‌گیری / تراکنش‌ها',
+    category: '📋 عمومی',
+    note: '',
+    getText() {
+      return `${GREET}جهت آموزش نحوه گزارش‌گیری و مشاهده تراکنش‌ها در پنل اسنپ‌پی، لطفاً ویدیوی آموزشی زیر را مشاهده فرمایید:
+https://www.aparat.com/v/iiz7qcm${SIGN}`;
+    },
+    links: [{ label: 'آموزش گزارش‌گیری', url: 'https://www.aparat.com/v/iiz7qcm' }]
+  },
+
+  'account-manager': {
+    topic: 'اکانت منیجر',
+    category: '📋 عمومی',
+    note: '',
+    getText() {
+      return `${GREET}در حال حاضر اکانت منیجر به صورت اتوماتیک و با توجه به افزایش حجم فروش به پذیرندگان تخصیص می‌یابد و امکان درخواست دستی آن وجود ندارد.${SIGN}`;
+    },
+    links: []
+  },
+
+  'customer-credit': {
+    topic: 'اعتبار مشتری',
+    category: '📋 عمومی',
+    note: '',
+    getText() {
+      return `${GREET}اعتبار خرید اقساطی به صورت اتوماتیک و بر اساس ارزیابی سیستمی به کاربران تخصیص می‌یابد و امکان افزایش یا اعطای دستی آن وجود ندارد. خواهشمند است با کاربری که دارای اعتبار خرید اقساطی است تست فرمایید.${SIGN}`;
+    },
+    links: [
+      { label: 'چرا از خرید اعتباری استفاده کنیم؟', url: 'https://l.snpy.ir/5t9bi' },
+      { label: 'چگونه فروش بیشتری داشته باشیم؟', url: 'https://l.snpy.ir/lger1' }
+    ]
+  },
+
+  'register-app': {
+    topic: 'ثبت‌نام در اپ اسنپ‌پی',
+    category: '📋 عمومی',
+    note: '',
+    getText() {
+      return `${GREET}جهت ثبت‌نام و عضویت در اپلیکیشن اسنپ‌پی، لطفاً از لینک زیر اقدام فرمایید:
+https://l.snpy.ir/zdpq8${SIGN}`;
+    },
+    links: [{ label: 'ثبت‌نام اسنپ‌پی', url: 'https://l.snpy.ir/zdpq8' }]
+  },
+
+  'duplicate': {
+    topic: 'تیکت تکراری',
+    category: '📋 عمومی',
+    note: '',
+    getText() {
+      return `${GREET}این تیکت به عنوان تکراری شناسایی و بسته شد. لطفاً پیگیری خود را از طریق تیکت اصلی ادامه دهید.${SIGN}`;
+    },
+    links: []
+  },
+
+  'no-reply-close': {
+    topic: 'بستن تیکت — عدم پاسخگویی',
+    category: '📋 عمومی',
+    note: 'پذیرنده جواب نداده — تیکت بسته میشه. این پاسخ سلام و خداحافظی معمول ندارد.',
+    getText() {
+      return `با توجه به عدم پاسخگویی به تیکت از سمت شما، تیکت فوق بسته خواهد شد. لطفاً با توجه به مورد اعلامی در تیکت، اطلاعات را تکمیل و اقدام به ثبت مجدد تیکت نمایید.
+
+با تشکر
+پشتیبانی پذیرندگان اسنپ‌پی`;
+    },
+    links: []
+  },
+
+  'terminate': {
+    topic: 'فسخ قرارداد',
+    category: '📋 عمومی',
+    note: '',
+    getText() {
+      return `${GREET}جهت درخواست فسخ قرارداد، لطفاً از لینک زیر اقدام فرمایید:
+https://l.snpy.ir/8mohn${SIGN}`;
+    },
+    links: [{ label: 'فرم فسخ قرارداد', url: 'https://l.snpy.ir/8mohn' }]
+  }
+
+};
+
+// ─── STATE ───
+let currentKey = null;
+let customValues = {};
+
+// ─── INIT ───
+document.getElementById('template-count').textContent =
+  Object.keys(responses).length + ' قالب';
+
+// ─── SHOW ───
+function show(key, btn) {
+  currentKey = key;
+  customValues = {};
+  const r = responses[key];
+
+  document.getElementById('placeholder').style.display = 'none';
+  const box = document.getElementById('response-box');
+  box.classList.add('visible');
+
+  // Active button
+  document.querySelectorAll('.cat-btn').forEach(b => b.classList.remove('active'));
+  if (btn) btn.classList.add('active');
+
+  // Header
+  document.getElementById('topic-title').textContent = r.topic;
+  document.getElementById('topic-breadcrumb').textContent = r.category || '';
+
+  // Reset copy button
+  const copyBtn = document.getElementById('copy-btn');
+  copyBtn.classList.remove('copied');
+  document.getElementById('copy-label').textContent = 'کپی متن';
+
+  // Notes
+  const notesCard = document.getElementById('notes-card');
+  if (r.note) {
+    notesCard.style.display = 'flex';
+    document.getElementById('notes-text').textContent = r.note;
+  } else {
+    notesCard.style.display = 'none';
+  }
+
+  // Custom fields
+  const cf = document.getElementById('custom-fields');
+  const grid = document.getElementById('fields-grid');
+  if (r.customFields && r.customFields.length) {
+    cf.classList.add('visible');
+    grid.innerHTML = r.customFields.map(f =>
+      `<div class="field-group${f.full ? ' full' : ''}">
+        <label>${f.label}</label>
+        <input type="text" id="cf_${f.id}" placeholder="${f.placeholder}"
+          oninput="liveUpdate('${f.id}', this.value)" />
+      </div>`
+    ).join('');
+  } else {
+    cf.classList.remove('visible');
+    grid.innerHTML = '';
+  }
+
+  renderResponse();
+
+  // Links
+  const linksCard = document.getElementById('links-card');
+  const linksList = document.getElementById('links-list');
+  if (r.links && r.links.length) {
+    linksCard.style.display = 'block';
+    linksList.innerHTML = r.links.map(l =>
+      `<div class="link-item">
+        <span class="link-label">${l.label}</span>
+        <a class="link-url" href="${l.url}" target="_blank">${l.url}</a>
+        <a class="link-open-btn" href="${l.url}" target="_blank">باز کن ↗</a>
+      </div>`
+    ).join('');
+  } else {
+    linksCard.style.display = 'none';
+  }
+
+  // Scroll to top
+  document.getElementById('main-area').scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function liveUpdate(id, val) {
+  customValues[id] = val;
+  renderResponse();
+}
+
+function applyCustom() {
+  document.querySelectorAll('#fields-grid input').forEach(inp => {
+    const id = inp.id.replace('cf_', '');
+    customValues[id] = inp.value;
+  });
+  renderResponse();
+}
+
+function renderResponse() {
+  if (!currentKey) return;
+  const r = responses[currentKey];
+  const text = r.getText(customValues);
+  document.getElementById('response-text').textContent = text;
+  document.getElementById('char-count').textContent = text.length + ' کاراکتر';
+}
+
+function copyResponse() {
+  const text = document.getElementById('response-text').textContent;
+  navigator.clipboard.writeText(text).then(() => {
+    const btn = document.getElementById('copy-btn');
+    btn.classList.add('copied');
+    document.getElementById('copy-label').textContent = 'کپی شد! ✓';
+    setTimeout(() => {
+      btn.classList.remove('copied');
+      document.getElementById('copy-label').textContent = 'کپی متن';
+    }, 2500);
+  });
+}
+
+function filterCategories() {
+  const q = document.getElementById('searchInput').value.trim();
+  document.querySelectorAll('.cat-btn').forEach(btn => {
+    const match = !q || btn.textContent.includes(q);
+    btn.style.display = match ? 'flex' : 'none';
+  });
+  document.querySelectorAll('.category-group').forEach(group => {
+    const anyVisible = [...group.querySelectorAll('.cat-btn')].some(b => b.style.display !== 'none');
+    group.style.display = anyVisible ? 'block' : 'none';
+  });
+}
+</script>
+</body>
+</html>
