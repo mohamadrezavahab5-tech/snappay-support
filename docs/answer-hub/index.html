@@ -1,41 +1,752 @@
-<!doctype html><html lang="fa" dir="rtl"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#f7f8fb"><title>SnappPay Answer Hub</title><style>
-:root{--bg:#f7f8fb;--card:#fff;--soft:#f1f4f8;--line:#e6eaf0;--text:#151923;--muted:#6f7888;--blue:#4562e8;--blue2:#344dd0;--blueSoft:#eef2ff;--ok:#17845f;--warn:#9a6a00;--bad:#c3425a;--shadow:0 20px 60px rgba(25,35,65,.09)}
-*{box-sizing:border-box}html,body{margin:0;min-height:100%;background:var(--bg);color:var(--text);font-family:Segoe UI,Tahoma,Arial,sans-serif}button,input,select{font:inherit}button{cursor:pointer}.hidden{display:none!important}.btn{height:40px;border:1px solid var(--line);border-radius:11px;background:#fff;padding:0 14px;color:var(--text);font-weight:700}.btn:hover{background:var(--soft)}.btn.primary{background:var(--blue);border-color:var(--blue);color:#fff}.btn.primary:hover{background:var(--blue2)}.btn.danger{color:var(--bad);background:#fff2f4}.muted{color:var(--muted)}.pill{display:inline-flex;padding:4px 8px;border-radius:8px;background:var(--blueSoft);color:var(--blue);font-size:10px;font-weight:800}.tag{display:inline-flex;padding:4px 7px;border:1px solid var(--line);border-radius:8px;color:var(--muted);font-size:9px}.dot{width:7px;height:7px;border-radius:50%;background:var(--ok);display:inline-block}.empty{padding:28px;text-align:center;color:var(--muted);font-size:11px}
-.auth{min-height:100vh;display:grid;place-items:center;padding:28px;background:radial-gradient(circle at 10% 0%,rgba(69,98,232,.07),transparent 28%),var(--bg)}.authBox{width:min(980px,100%);min-height:610px;display:grid;grid-template-columns:42% 58%;background:var(--card);border:1px solid var(--line);border-radius:24px;overflow:hidden;box-shadow:var(--shadow)}.brandPane{padding:44px;background:#141a26;color:#fff;display:flex;flex-direction:column;justify-content:space-between}.logo{width:48px;height:48px;border-radius:14px;background:#fff;color:#141a26;display:grid;place-items:center;font-weight:900;font-size:18px}.brandPane h1{font-size:36px;line-height:1.35;margin:34px 0 10px}.brandPane p{color:#aab3c1;font-size:12px;line-height:1.9}.perks{display:grid;gap:12px;margin-top:28px}.perk{font-size:10px;color:#dce2ea;display:flex;gap:10px;align-items:center}.perk i{width:28px;height:28px;border-radius:9px;background:#202836;display:grid;place-items:center;font-style:normal}.formPane{padding:38px 44px;display:flex;flex-direction:column}.tabs{display:flex;background:var(--soft);padding:4px;border-radius:11px;gap:4px;margin-bottom:28px}.tabs button{height:36px;flex:1;border:0;background:transparent;border-radius:9px;color:var(--muted);font-weight:800}.tabs button.on{background:#fff;color:var(--text);box-shadow:0 1px 4px rgba(0,0,0,.07)}h2{margin:0 0 4px;font-size:22px}.sub{font-size:10px;color:var(--muted);margin-bottom:20px}.fields{display:grid;gap:11px}.two{grid-template-columns:1fr 1fr}.field label{font-size:9px;color:var(--muted);font-weight:800;display:block;margin:0 2px 5px}.field input,.field select{width:100%;height:43px;border:1px solid #dce2ea;border-radius:10px;padding:0 11px;outline:none;background:#fff}.field input:focus,.field select:focus{border-color:#a8b2ff;box-shadow:0 0 0 3px rgba(69,98,232,.08)}.actions{margin-top:auto;padding-top:18px;display:flex;justify-content:flex-end;gap:8px}.msg{font-size:10px;margin-top:10px;padding:9px;border-radius:9px;background:#fff1f3;color:var(--bad)}.msg.ok{background:#eef9f5;color:var(--ok)}.roleGrid{display:grid;grid-template-columns:1fr 1fr;gap:9px}.role{padding:14px;border:1px solid var(--line);border-radius:13px;background:#fbfcfe;cursor:pointer}.role.on{border-color:#aeb9ff;background:var(--blueSoft)}.role b{display:block;font-size:12px}.role span{font-size:9px;color:var(--muted)}.question{padding:12px;border:1px solid var(--line);border-radius:12px;background:#fbfcfe;margin-bottom:8px}.question b{font-size:10px;display:block;margin-bottom:8px}.opts{display:flex;gap:6px;flex-wrap:wrap}.opt{border:1px solid var(--line);background:#fff;border-radius:9px;padding:6px 9px;font-size:9px}.opt.on{background:var(--blueSoft);color:var(--blue);border-color:#b7c1ff}
-.pending{max-width:620px;margin:10vh auto;background:#fff;border:1px solid var(--line);border-radius:22px;padding:38px;text-align:center;box-shadow:var(--shadow)}.pendingIcon{width:66px;height:66px;border-radius:18px;background:#fff8e6;color:var(--warn);display:grid;place-items:center;margin:auto;font-size:28px}.pending p{font-size:11px;color:var(--muted)}
-.shell{min-height:100vh;display:grid;grid-template-columns:230px 1fr}.side{height:100vh;position:sticky;top:0;background:#fff;border-left:1px solid var(--line);padding:15px 12px;display:flex;flex-direction:column}.brand{display:flex;gap:10px;align-items:center;padding:4px 5px 16px}.mark{width:36px;height:36px;border-radius:11px;background:#141a26;color:#fff;display:grid;place-items:center;font-weight:900}.brand b{font-size:12px}.brand small{display:block;color:var(--muted);font-size:8px}.nav{display:grid;gap:3px}.nav button{height:39px;border:0;border-radius:9px;background:transparent;text-align:right;padding:0 11px;color:var(--muted);font-weight:700}.nav button.on{background:var(--blueSoft);color:var(--blue);box-shadow:inset -3px 0 0 var(--blue)}.profile{margin-top:auto;border-top:1px solid var(--line);padding-top:12px;display:grid;grid-template-columns:35px 1fr auto;align-items:center;gap:8px}.avatar{width:35px;height:35px;border-radius:10px;background:var(--blueSoft);color:var(--blue);display:grid;place-items:center;font-weight:900}.profile b{font-size:10px}.profile small{font-size:8px;color:var(--muted);display:block}.main{min-width:0}.top{height:64px;position:sticky;top:0;z-index:20;background:rgba(247,248,251,.92);backdrop-filter:blur(12px);border-bottom:1px solid var(--line);padding:10px 24px;display:flex;align-items:center;gap:10px}.search{flex:1;max-width:820px;position:relative}.search input{width:100%;height:42px;border:1px solid #dce2ea;border-radius:11px;background:#fff;padding:0 42px 0 12px;outline:none}.search:before{content:"⌕";position:absolute;right:14px;top:5px;font-size:24px;color:#a4adba}.results{display:none;position:absolute;top:48px;right:0;left:0;background:#fff;border:1px solid var(--line);border-radius:13px;box-shadow:var(--shadow);padding:6px;max-height:65vh;overflow:auto}.results.show{display:block}.result{padding:10px;border-radius:9px;cursor:pointer}.result:hover{background:var(--soft)}.result b{font-size:11px;display:block}.result span{font-size:9px;color:var(--muted)}.live{font-size:9px;color:var(--muted);white-space:nowrap}.page{max-width:1200px;margin:auto;padding:30px 32px 70px}.hero{background:#fff;border:1px solid var(--line);border-radius:20px;padding:30px}.hero em{font-style:normal;font-size:9px;color:var(--blue);font-weight:900;letter-spacing:.7px}.hero h1{font-size:34px;margin:6px 0 8px}.hero p{font-size:11px;color:var(--muted);max-width:760px}.hero input{width:100%;max-width:880px;height:54px;margin-top:18px;border:1px solid #dce2ea;border-radius:14px;background:#fbfcfe;padding:0 16px;outline:none}.chips{display:flex;gap:6px;flex-wrap:wrap;margin-top:9px}.chip{border:1px solid var(--line);background:#fbfcfe;border-radius:8px;padding:5px 8px;font-size:9px;color:var(--muted)}.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:9px;margin-top:12px}.stat,.card,.box{background:#fff;border:1px solid var(--line);border-radius:14px}.stat{padding:13px}.stat b{font-size:19px;display:block}.stat span{font-size:9px;color:var(--muted)}.section{margin-top:24px}.section h3{font-size:15px;margin:0 0 10px}.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:9px}.card{padding:14px;cursor:pointer;transition:.15s}.card:hover{transform:translateY(-1px);box-shadow:0 8px 20px rgba(30,40,70,.05)}.card h4{font-size:12px;margin:8px 0 4px}.card p{font-size:9px;color:var(--muted);margin:0}.article{display:grid;grid-template-columns:1fr 290px;gap:16px;align-items:start}.articleMain{min-width:0}.box{padding:20px 22px}.title{font-size:26px;margin:12px 0 6px}.answerBox{margin-top:10px;background:#fff;border:1px solid var(--line);border-radius:16px;overflow:hidden}.answerHead{padding:12px 14px;border-bottom:1px solid var(--line);display:flex;justify-content:space-between;align-items:center;background:#fbfcfe}.answer{padding:21px 22px;line-height:2.05;font-size:12px;white-space:pre-wrap}.aside{position:sticky;top:82px;display:grid;gap:9px}.aside .box{padding:13px}.action{display:block;text-decoration:none;text-align:center;background:var(--blue);color:#fff;padding:9px;border-radius:9px;font-size:10px;font-weight:800}.url{direction:ltr;unicode-bidi:isolate;display:block;font-size:8px;color:var(--muted);overflow-wrap:anywhere;margin-top:8px}.link{direction:ltr;unicode-bidi:isolate;color:var(--blue);font-weight:700;text-decoration:none}.adminStats{display:grid;grid-template-columns:repeat(4,1fr);gap:9px;margin:12px 0}.table{background:#fff;border:1px solid var(--line);border-radius:14px;overflow:auto}table{width:100%;border-collapse:collapse;font-size:9px}th,td{padding:10px;border-bottom:1px solid var(--line);text-align:right;white-space:nowrap}th{background:#fbfcfe;color:var(--muted)}.badge{padding:4px 7px;border-radius:7px;background:#fff8e6;color:var(--warn)}.badge.active{background:#eef9f5;color:var(--ok)}.module{padding:14px;background:#fff;border:1px solid var(--line);border-radius:13px;margin-bottom:8px}.module h4{margin:0;font-size:11px}.module p{font-size:9px;color:var(--muted)}
-@media(max-width:900px){.authBox{grid-template-columns:1fr}.brandPane{display:none}.shell{grid-template-columns:72px 1fr}.brand>div:last-child,.nav span,.profile>div:nth-child(2){display:none}.grid{grid-template-columns:1fr 1fr}.article{grid-template-columns:1fr}.aside{position:static}.stats,.adminStats{grid-template-columns:1fr 1fr}}@media(max-width:600px){.auth{padding:0}.authBox{min-height:100vh;border:0;border-radius:0}.formPane{padding:26px 18px}.shell{display:block}.side{position:fixed;bottom:0;top:auto;right:0;left:0;height:58px;z-index:30;border-top:1px solid var(--line);border-left:0;padding:6px}.brand,.profile{display:none}.nav{display:flex;justify-content:space-around}.nav button{width:auto}.main{padding-bottom:60px}.page{padding:18px 12px}.top{padding:8px 10px}.grid,.stats,.adminStats,.roleGrid,.two{grid-template-columns:1fr}.hero h1{font-size:27px}}
-</style></head><body><div id="app"></div><script>
-const U="https://xcmgbgthhpstxmmmhvqy.supabase.co",K="sb_publishable_9PyN5TZ2lTm1KKPN_MwAog_MjOeHv9U",A=document.getElementById("app");
-let S={session:null,me:null,access:null,data:{articles:[],media:[],newJoiner:[],config:{}},roles:[],questions:[],view:"home",cat:""};
-const e=s=>String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c])),n=s=>String(s||"").toLowerCase().replace(/[يى]/g,"ی").replace(/ك/g,"ک").replace(/\u200c/g," ").replace(/\s+/g," ").trim();
-async function api(p,o={}){let h={apikey:K,"content-type":"application/json",...(o.headers||{})};if(o.auth!==false&&S.session?.access_token)h.authorization="Bearer "+S.session.access_token;let r=await fetch(U+p,{method:o.method||"GET",headers:h,body:o.body?JSON.stringify(o.body):undefined,cache:"no-store"}),t=await r.text(),d;try{d=t?JSON.parse(t):null}catch{d=t}if(!r.ok){let x=new Error(d?.message||d?.error_description||d?.error||t||"Request failed");x.status=r.status;throw x}return d}
-const save=x=>{S.session=x||null;x?localStorage.setItem("ah-session",JSON.stringify(x)):localStorage.removeItem("ah-session")};
-async function rpc(name,body={}){return api("/rest/v1/rpc/"+name,{method:"POST",body})}
-async function loadPublic(){try{let [r,q]=await Promise.all([api("/rest/v1/app_roles?active=eq.true&role_id=neq.admin&select=role_id,role_label_fa,description,default_landing",{auth:false}),api("/rest/v1/onboarding_questions?active=eq.true&select=question_id,role_id,payload",{auth:false})]);S.roles=r;S.questions=q}catch{S.roles=[{role_id:"employee",role_label_fa:"نیروی شرکت",description:"دسترسی کامل به پایگاه دانش"},{role_id:"new_joiner",role_label_fa:"نیو جوینر",description:"مسیر آموزشی و پایگاه دانش"}]}}
-function msg(t,ok=false){let m=document.getElementById("msg");if(m)m.innerHTML='<div class="msg '+(ok?"ok":"")+'">'+e(t)+'</div>'}
-function auth(tab="login",step=1,st={}){let login=tab==="login";A.innerHTML=`<div class="auth"><div class="authBox"><section class="brandPane"><div><div class="logo">S</div><h1>دانش درست،<br>در لحظه درست.</h1><p>Answer Hub پایگاه دانش زنده Merchant Support است؛ محتوا، آموزش و دسترسی‌ها از یک نقطه مدیریت می‌شوند.</p><div class="perks"><div class="perk"><i>⌕</i>جستجوی سریع و مفهومی</div><div class="perk"><i>↗</i>لینک اقدام مستقیم داخل پاسخ</div><div class="perk"><i>↻</i>همیشه آخرین نسخه بدون نصب</div></div></div><small style="color:#748092">SnappPay · Internal Knowledge System</small></section><section class="formPane"><div class="tabs"><button id="li" class="${login?"on":""}">ورود</button><button id="su" class="${!login?"on":""}">ثبت‌نام</button></div><div id="body"></div></section></div></div>`;li.onclick=()=>auth("login");su.onclick=()=>auth("signup");let b=document.getElementById("body");if(login){b.innerHTML=`<h2>خوش اومدی</h2><div class="sub">با ایمیلی که ثبت‌نام کردی وارد شو.</div><div class="fields"><div class="field"><label>ایمیل</label><input id="email" type="email"></div><div class="field"><label>رمز عبور</label><input id="pass" type="password"></div><button class="btn primary" id="go">ورود به Answer Hub</button><div id="msg"></div></div>`;go.onclick=loginUser;return}signup(step,st,b)}
-function signup(step,st,b){if(step===1){b.innerHTML=`<h2>ساخت حساب</h2><div class="sub">اطلاعات اولیه را وارد کن.</div><div class="fields two"><div class="field"><label>نام و نام خانوادگی</label><input id="name"></div><div class="field"><label>Username</label><input id="user"></div><div class="field" style="grid-column:1/-1"><label>ایمیل</label><input id="email" type="email"></div><div class="field" style="grid-column:1/-1"><label>رمز عبور</label><input id="pass" type="password"></div></div><div class="actions"><button class="btn primary" id="next">ادامه</button></div><div id="msg"></div>`;next.onclick=()=>{let x={full_name:name.value.trim(),username:user.value.trim(),email:email.value.trim(),password:pass.value};if(!x.full_name||!x.email||x.password.length<8)return msg("اطلاعات را کامل کن؛ رمز حداقل ۸ کاراکتر.");signup(2,x,b)};return}if(step===2){b.innerHTML=`<h2>نوع دسترسی</h2><div class="sub">بر اساس انتخابت مسیر شروع تنظیم می‌شود.</div><div class="roleGrid">${S.roles.map(r=>`<div class="role" data-r="${e(r.role_id)}"><b>${e(r.role_label_fa)}</b><span>${e(r.description||"")}</span></div>`).join("")}</div><div class="actions"><button class="btn" id="back">برگشت</button><button class="btn primary" id="next" disabled>ادامه</button></div>`;let r="";document.querySelectorAll(".role").forEach(x=>x.onclick=()=>{document.querySelectorAll(".role").forEach(y=>y.classList.remove("on"));x.classList.add("on");r=x.dataset.r;next.disabled=false});back.onclick=()=>signup(1,st,b);next.onclick=()=>signup(3,{...st,requested_role:r},b);return}let qs=S.questions.filter(x=>x.role_id===st.requested_role),ans={};b.innerHTML=`<h2>چند سؤال کوتاه</h2><div class="sub">برای تنظیم مسیر شروع کار.</div>${qs.map((q,i)=>{let p=q.payload||{},opts=String(p["Placeholder / Options"]||"").split("|").filter(Boolean);return `<div class="question" data-q="${e(q.question_id)}"><b>${i+1}. ${e(p["Question FA"]||"")}</b><div class="opts">${opts.map(o=>`<button class="opt" data-a="${e(o)}">${e(o)}</button>`).join("")}</div></div>`}).join("")||'<div class="empty">سؤال تکمیلی ندارد.</div>'}<div class="actions"><button class="btn" id="back">برگشت</button><button class="btn primary" id="finish">ثبت‌نام</button></div><div id="msg"></div>`;document.querySelectorAll(".question").forEach(q=>q.querySelectorAll(".opt").forEach(o=>o.onclick=()=>{q.querySelectorAll(".opt").forEach(x=>x.classList.remove("on"));o.classList.add("on");ans[q.dataset.q]=o.dataset.a}));back.onclick=()=>signup(2,st,b);finish.onclick=()=>register(st,qs,ans)}
-async function register(st,qs,ans){try{finish.disabled=true;let d=await api("/auth/v1/signup",{method:"POST",auth:false,body:{email:st.email,password:st.password,data:{full_name:st.full_name,username:st.username,requested_role:st.requested_role}}});localStorage.setItem("ah-onboard",JSON.stringify({email:st.email.toLowerCase(),role:st.requested_role,qs,ans}));if(d.access_token||d.session){save(d.session||d);await sendOnboard();await bootAuthed()}else msg("حساب ساخته شد. ایمیل تأیید را باز کن، بعد وارد شو.",true)}catch(x){msg(x.message)}finally{if(window.finish)finish.disabled=false}}
-async function loginUser(){try{go.disabled=true;let d=await api("/auth/v1/token?grant_type=password",{method:"POST",auth:false,body:{email:email.value.trim(),password:pass.value}});save(d);await sendOnboard();await bootAuthed()}catch(x){msg(String(x.message).includes("Email not confirmed")?"اول ایمیل تأیید را باز کن.":"ایمیل یا رمز عبور درست نیست.")}finally{if(window.go)go.disabled=false}}
-async function sendOnboard(){let raw=localStorage.getItem("ah-onboard");if(!raw||!S.session?.user?.id)return;try{let p=JSON.parse(raw);if(p.email!==String(S.session.user.email||"").toLowerCase())return;for(let q of p.qs||[]){let z=q.payload||{},a=p.ans[q.question_id]||"";await api("/rest/v1/onboarding_answers?on_conflict=user_id,question_id",{method:"POST",body:{user_id:S.session.user.id,requested_role:p.role,question_id:q.question_id,question:z["Question FA"]||"",answer:a,score:0,passed:null},headers:{Prefer:"resolution=merge-duplicates,return=minimal"}})}await rpc("mark_onboarding_complete",{p_score:100});localStorage.removeItem("ah-onboard")}catch{}}
-async function bootAuthed(){try{let d=await rpc("get_my_access");S.me=d.profile;S.me.email=d.email;S.access=d.access;if(S.me.status!=="active")return pending();let data=await api("/functions/v1/answerhub-data");S.data={articles:data.articles||[],media:data.media||[],newJoiner:data.newJoiner||[],config:data.config||{}};shell()}catch(x){if(x.status===401){save(null);return auth()}A.innerHTML='<div class="pending"><h2>اتصال برقرار نشد</h2><p>اینترنت/VPN را بررسی کن و دوباره تلاش کن.</p><button class="btn primary" onclick="bootAuthed()">تلاش مجدد</button></div>'}}
-function pending(){A.innerHTML=`<div class="pending"><div class="pendingIcon">⌛</div><h2>${S.me.status==="pending"?"در انتظار تأیید ادمین":"دسترسی حساب فعال نیست"}</h2><p>${S.me.status==="pending"?"ثبت‌نام انجام شده. بعد از تأیید ادمین با همین حساب وارد شو.":"برای بررسی با ادمین هماهنگ کن."}</p><div class="actions" style="justify-content:center"><button class="btn" onclick="bootAuthed()">بررسی مجدد</button><button class="btn danger" onclick="logout()">خروج</button></div></div>`}
-function shell(){let admin=S.access?.can_manage_users;A.innerHTML=`<div class="shell"><aside class="side"><div class="brand"><div class="mark">S</div><div><b>Answer Hub</b><small>Merchant Knowledge</small></div></div><nav class="nav"><button class="on" data-v="home">⌂ <span>خانه</span></button><button data-v="kb">⌕ <span>پایگاه دانش</span></button>${S.access?.can_use_new_joiner?'<button data-v="train">🎓 <span>New Joiner</span></button>':""}${admin?'<button data-v="admin">▦ <span>مدیریت کاربران</span></button>':""}</nav><div class="profile"><div class="avatar">${e((S.me.full_name||"U")[0])}</div><div><b>${e(S.me.full_name||S.me.username||"کاربر")}</b><small>${e(S.me.role==="admin"?"ادمین":S.me.role)}</small></div><button class="btn" onclick="logout()">↪</button></div></aside><main class="main"><header class="top"><div class="search"><input id="q" placeholder="مثلاً: تسویه نیومده، Forbidden، تغییر شبا…"><div id="res" class="results"></div></div><div class="live"><span class="dot"></span> Live</div></header><div id="page" class="page"></div></main></div>`;document.querySelectorAll(".nav button").forEach(b=>b.onclick=()=>view(b.dataset.v));q.oninput=()=>searchUI(q.value);view("home");setInterval(refresh,90000)}
-function view(v){S.view=v;document.querySelectorAll(".nav button").forEach(b=>b.classList.toggle("on",b.dataset.v===v));if(v==="home")home();if(v==="kb")kb();if(v==="train")train();if(v==="admin")admin()}
-function home(){let a=S.data.articles,c={};a.forEach(x=>c[x["دسته‌بندی"]]=(c[x["دسته‌بندی"]]||0)+1);page.innerHTML=`<div class="hero"><em>SNAPPPAY · KNOWLEDGE</em><h1>${e((S.me.full_name||"").split(" ")[0])}، دنبال چی می‌گردی؟</h1><p>${e(S.data.config.SEARCH_HELP||"موضوع را با زبان طبیعی بنویس؛ لازم نیست اسم دقیق دسته را بدانی.")}</p><input id="hq" placeholder="مثلاً: پرداخت گذشته ولی واریز نشده…"><div class="chips">${String(S.data.config.SEARCH_EXAMPLES||"تسویه نیومده|شبا عوض کنم|Forbidden|محصول تو سرچ نیست").split("|").map(x=>`<button class="chip">${e(x.trim())}</button>`).join("")}</div></div><div class="stats"><div class="stat"><b>${a.length}</b><span>مقاله فعال</span></div><div class="stat"><b>${Object.keys(c).length}</b><span>دسته‌بندی</span></div><div class="stat"><b>${S.data.newJoiner.length}</b><span>ماژول آموزشی</span></div><div class="stat"><b>Live</b><span>همگام با سرور</span></div></div><div class="section"><h3>دسته‌بندی‌ها</h3><div class="grid">${Object.entries(c).map(([x,n])=>`<div class="card" data-cat="${e(x)}"><span class="pill">${e(x)}</span><h4>${e(x)}</h4><p>${n} مقاله</p></div>`).join("")}</div></div>`;hq.onkeydown=x=>{if(x.key==="Enter"){q.value=hq.value;searchUI(hq.value);q.focus()}};document.querySelectorAll(".chip").forEach(x=>x.onclick=()=>{q.value=x.textContent;searchUI(q.value);q.focus()});document.querySelectorAll("[data-cat]").forEach(x=>x.onclick=()=>{S.cat=x.dataset.cat;view("kb")})}
-function kb(){let a=S.cat?S.data.articles.filter(x=>x["دسته‌بندی"]===S.cat):S.data.articles;let cats=["همه",...new Set(S.data.articles.map(x=>x["دسته‌بندی"]))];page.innerHTML=`<div style="display:flex;justify-content:space-between;align-items:end;margin-bottom:10px"><div><h2 style="font-size:18px">پایگاه دانش</h2><div class="muted" style="font-size:9px">${a.length} مقاله</div></div></div><div class="chips">${cats.map(c=>`<button class="chip" data-c="${e(c==="همه"?"":c)}">${e(c)}</button>`).join("")}</div><div class="grid" style="margin-top:12px">${a.map(card).join("")}</div>`;document.querySelectorAll("[data-c]").forEach(x=>x.onclick=()=>{S.cat=x.dataset.c;kb()});wire()}
-function card(a){return `<div class="card art" data-id="${e(a.ID)}"><span class="pill">${e(a["دسته‌بندی"])}</span><h4>${e(a["عنوان مقاله"])}</h4><p>${e(a["نمونه سؤال‌ها"]||"")}</p></div>`}
-function wire(){document.querySelectorAll(".art").forEach(x=>x.onclick=()=>article(x.dataset.id))}
-function searchUI(t){t=n(t);if(!t)return res.classList.remove("show");let r=S.data.articles.map(a=>{let s=n([a["عنوان مقاله"],a["کلمات کلیدی"],a["عبارت‌های مشابه / Semantic Aliases"],a["نمونه سؤال‌ها"],a["تگ‌ها"]].join(" ")),sc=t.split(" ").filter(Boolean).reduce((z,w)=>z+(s.includes(w)?1:0),0);return{a,sc}}).filter(x=>x.sc).sort((a,b)=>b.sc-a.sc).slice(0,12);res.innerHTML=r.length?r.map(x=>`<div class="result" data-id="${e(x.a.ID)}"><b>${e(x.a["عنوان مقاله"])}</b><span>${e(x.a["دسته‌بندی"])} · ${e(x.a["نمونه سؤال‌ها"]||"")}</span></div>`).join(""):'<div class="empty">نتیجه‌ای پیدا نشد.</div>';res.classList.add("show");res.querySelectorAll("[data-id]").forEach(x=>x.onclick=()=>{res.classList.remove("show");article(x.dataset.id)})}
-function prepared(a){let z=String(a["پاسخ آماده برای پذیرنده"]||""),u=String(a["لینک اقدام مستقیم"]||"");if(u&&!z.includes(u))z+=`\n\n${a["برچسب اقدام"]||"لینک اقدام"}:\n${u}`;return z}
-function links(t){return e(t).replace(/(https?:\/\/[^\s<]+)/g,'<a class="link" target="_blank" rel="noopener" href="$1">$1</a>').replace(/\n/g,"<br>")}
-function article(id){let a=S.data.articles.find(x=>x.ID===id);if(!a)return;let z=prepared(a),action=a["لینک اقدام مستقیم"]||"",src=a["لینک آکادمی"]||"";S.view="article";document.querySelectorAll(".nav button").forEach(b=>b.classList.remove("on"));page.innerHTML=`<div class="article"><main class="articleMain"><div class="box"><button class="btn" onclick="view('kb')">← برگشت</button><div style="margin-top:12px"><span class="pill">${e(a["دسته‌بندی"])}</span> <span class="tag">${e(a.ID)}</span></div><h1 class="title">${e(a["عنوان مقاله"])}</h1><div class="muted" style="font-size:10px">${e(a["نمونه سؤال‌ها"]||"")}</div></div><div class="answerBox"><div class="answerHead"><div><small class="muted">پاسخ نهایی</small><br><b style="font-size:11px">آماده ارسال برای پذیرنده</b></div><button class="btn primary" id="copy">کپی پاسخ</button></div><div class="answer">${links(z)}</div></div>${S.access?.can_view_internal_notes&&a["راهنمای داخلی کارشناس"]?`<div class="box" style="margin-top:10px;background:#fff9ea;color:#8a6200;font-size:10px"><b>نکته داخلی کارشناس</b><br>${e(a["راهنمای داخلی کارشناس"])}</div>`:""}</main><aside class="aside">${action?`<div class="box"><small class="muted">اقدام مستقیم</small><h4>${e(a["برچسب اقدام"]||"باز کردن لینک")}</h4><a class="action" target="_blank" href="${e(action)}">باز کردن لینک ↗</a><span class="url">${e(action)}</span></div>`:""}${src?`<div class="box"><small class="muted">منبع رسمی</small><a target="_blank" class="link" href="${e(src)}">${e(a["عنوان منبع آکادمی"]||"راهنمای آکادمی")} ↗</a></div>`:""}</aside></div>`;copy.onclick=async()=>{try{await navigator.clipboard.writeText(z);copy.textContent="کپی شد ✓";setTimeout(()=>copy.textContent="کپی پاسخ",1200)}catch{}}}
-function train(){page.innerHTML=`<h2 style="font-size:18px">New Joiner</h2><div class="sub">مسیر یادگیری مرحله‌به‌مرحله</div>${S.data.newJoiner.map((m,i)=>`<div class="module"><span class="pill">${i+1}</span><h4>${e(m["عنوان"])}</h4><p>${e(m["هدف یادگیری"]||"")}</p><div style="font-size:10px">${e(m["محتوا / خلاصه"]||"")}</div></div>`).join("")||'<div class="empty">ماژولی تعریف نشده.</div>'}
-async function admin(){if(!S.access?.can_manage_users)return;page.innerHTML='<h2 style="font-size:18px">مدیریت کاربران</h2><div class="empty">در حال دریافت…</div>';try{let u=await rpc("admin_list_users"),st={pending:0,active:0,disabled:0,rejected:0};u.forEach(x=>st[x.status]=(st[x.status]||0)+1);page.innerHTML=`<h2 style="font-size:18px">مدیریت کاربران</h2><div class="adminStats"><div class="stat"><b>${st.pending}</b><span>در انتظار</span></div><div class="stat"><b>${st.active}</b><span>فعال</span></div><div class="stat"><b>${st.disabled}</b><span>غیرفعال</span></div><div class="stat"><b>${u.length}</b><span>کل کاربران</span></div></div><div class="table"><table><thead><tr><th>کاربر</th><th>ایمیل</th><th>درخواست</th><th>وضعیت</th><th>دسترسی</th><th>اقدام</th></tr></thead><tbody>${u.map(x=>`<tr data-id="${x.id}"><td>${e(x.full_name||x.username||"—")}</td><td>${e(x.email||"")}</td><td>${e(x.requested_role||"")}</td><td><span class="badge ${x.status==="active"?"active":""}">${e(x.status)}</span></td><td>${x.role==="admin"?"ادمین":`<select class="roleSel"><option value="employee" ${x.role==="employee"?"selected":""}>نیروی شرکت</option><option value="new_joiner" ${x.role==="new_joiner"?"selected":""}>نیو جوینر</option></select>`}</td><td>${x.role==="admin"?"مالک سیستم":`<button class="btn primary approve">تأیید</button> <button class="btn danger reject">رد</button>`}</td></tr>`).join("")}</tbody></table></div>`;document.querySelectorAll("tr[data-id]").forEach(tr=>{let id=tr.dataset.id,sel=tr.querySelector(".roleSel");if(!sel)return;tr.querySelector(".approve").onclick=()=>setUser(id,"active",sel.value);tr.querySelector(".reject").onclick=()=>setUser(id,"rejected",sel.value)})}catch(x){page.innerHTML='<div class="empty">خطا در دریافت کاربران</div>'}}
-async function setUser(id,status,role){try{await rpc("admin_set_user",{p_user_id:id,p_status:status,p_role:role});admin()}catch(x){alert(x.message)}}
-async function refresh(){if(S.me?.status!=="active")return;try{let d=await api("/functions/v1/answerhub-data");S.data={articles:d.articles||[],media:d.media||[],newJoiner:d.newJoiner||[],config:d.config||{}};if(S.view==="home")home();if(S.view==="kb")kb()}catch{}}
-async function logout(){try{await api("/auth/v1/logout",{method:"POST"})}catch{}save(null);S.me=null;S.access=null;auth()}
-async function boot(){await loadPublic();try{let r=localStorage.getItem("ah-session");if(r)S.session=JSON.parse(r)}catch{}S.session?.access_token?bootAuthed():auth()}
+<!doctype html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#f7f8fa">
+<title>SnappPay Answer Hub</title>
+<style>
+:root{
+ --bg:#f7f8fa;--surface:#fff;--surface2:#fbfcfe;--surface3:#f3f5f8;
+ --text:#151822;--muted:#6f7785;--muted2:#9aa2af;--line:#e8ebf0;--line2:#dfe3e9;
+ --accent:#4b67f2;--accent2:#3c57df;--accent-soft:#eef1ff;
+ --success:#16875f;--success-soft:#eaf8f2;--warn:#9a6900;--warn-soft:#fff8e6;--danger:#c83f59;--danger-soft:#fff0f3;
+ --shadow:0 10px 30px rgba(20,26,40,.07);--shadow-lg:0 24px 70px rgba(20,26,40,.12);
+ --sidebar:236px;--r:14px;--r2:20px;
+}
+[data-theme="dark"]{
+ --bg:#0f1218;--surface:#151a22;--surface2:#11161d;--surface3:#1b222c;
+ --text:#eef2f7;--muted:#9aa6b5;--muted2:#6f7b8a;--line:#252e3a;--line2:#303a48;
+ --accent:#8191ff;--accent2:#6c7cf6;--accent-soft:#1a2243;
+ --success:#5ed7ad;--success-soft:#12271f;--warn:#e5c06d;--warn-soft:#251f12;--danger:#ff8297;--danger-soft:#2d171e;
+ --shadow:0 12px 34px rgba(0,0,0,.25);--shadow-lg:0 24px 70px rgba(0,0,0,.35)
+}
+*{box-sizing:border-box}
+html{background:var(--bg)}
+body{margin:0;background:var(--bg);color:var(--text);font-family:"Segoe UI",Tahoma,Arial,sans-serif;font-size:14px;line-height:1.7}
+button,input,select,textarea{font:inherit}
+button{cursor:pointer}
+a{color:inherit}
+::selection{background:rgba(75,103,242,.17)}
+::-webkit-scrollbar{width:10px;height:10px}
+::-webkit-scrollbar-thumb{background:#cfd5de;border:3px solid transparent;background-clip:padding-box;border-radius:999px}
+[data-theme="dark"] ::-webkit-scrollbar-thumb{background:#3a4656;border:3px solid transparent;background-clip:padding-box}
+
+.hidden{display:none!important}
+.fade{animation:fade .18s ease}
+@keyframes fade{from{opacity:0;transform:translateY(3px)}to{opacity:1;transform:none}}
+@keyframes spin{to{transform:rotate(360deg)}}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+
+.btn{height:38px;border:1px solid var(--line2);border-radius:10px;background:var(--surface);color:var(--text);padding:0 13px;font-weight:650;display:inline-flex;align-items:center;justify-content:center;gap:7px;transition:.15s}
+.btn:hover{background:var(--surface3);border-color:var(--line2)}
+.btn.primary{background:var(--accent);border-color:var(--accent);color:#fff}
+.btn.primary:hover{background:var(--accent2);border-color:var(--accent2)}
+.btn.ghost{background:transparent;border-color:transparent}
+.btn.danger{background:var(--danger-soft);border-color:transparent;color:var(--danger)}
+.btn.small{height:32px;padding:0 9px;font-size:11px}
+.iconBtn{width:38px;height:38px;border:1px solid var(--line);border-radius:10px;background:var(--surface);color:var(--muted);display:grid;place-items:center}
+.iconBtn:hover{color:var(--text);background:var(--surface3)}
+.pill{display:inline-flex;align-items:center;gap:5px;padding:4px 8px;border-radius:8px;background:var(--accent-soft);color:var(--accent);font-size:10px;font-weight:800}
+.tag{display:inline-flex;align-items:center;padding:4px 7px;border:1px solid var(--line);border-radius:7px;background:var(--surface2);color:var(--muted);font-size:9px}
+.status{display:inline-flex;align-items:center;gap:6px;font-size:10px;color:var(--muted)}
+.dot{width:7px;height:7px;border-radius:50%;background:var(--muted2)}
+.dot.live{background:var(--success);box-shadow:0 0 0 3px rgba(22,135,95,.10)}
+.dot.warn{background:#e1a521}.dot.bad{background:var(--danger)}
+.muted{color:var(--muted)}
+.sep{height:1px;background:var(--line);margin:12px 0}
+.empty{border:1px dashed var(--line2);border-radius:14px;padding:34px;text-align:center;color:var(--muted);background:var(--surface2)}
+
+.auth{min-height:100vh;display:grid;place-items:center;padding:28px;background:var(--bg)}
+.authCard{width:min(1020px,100%);min-height:620px;display:grid;grid-template-columns:42% 58%;background:var(--surface);border:1px solid var(--line);border-radius:24px;overflow:hidden;box-shadow:var(--shadow-lg)}
+.authBrand{padding:46px;background:#151822;color:#fff;display:flex;flex-direction:column;justify-content:space-between;position:relative;overflow:hidden}
+.authBrand:after{content:"";position:absolute;width:280px;height:280px;border-radius:50%;border:56px solid rgba(255,255,255,.025);left:-140px;bottom:-120px}
+.authLogo{width:46px;height:46px;border-radius:13px;background:#fff;color:#151822;display:grid;place-items:center;font-weight:900;font-size:18px}
+.authBrand h1{font-size:38px;line-height:1.28;letter-spacing:-1.3px;margin:34px 0 10px;max-width:370px}
+.authBrand p{font-size:12px;color:#adb5c2;max-width:340px;margin:0}
+.authPerks{display:grid;gap:12px;margin-top:30px}
+.authPerk{display:flex;gap:10px;align-items:center;color:#d8dde5;font-size:10px}
+.authPerk i{width:28px;height:28px;border-radius:9px;background:rgba(255,255,255,.06);display:grid;place-items:center;font-style:normal}
+.authFoot{font-size:9px;color:#727c8a}
+.authPanel{padding:38px 44px;display:flex;flex-direction:column}
+.authTabs{display:flex;gap:4px;background:var(--surface3);border:1px solid var(--line);border-radius:10px;padding:3px;margin-bottom:28px}
+.authTabs button{height:34px;flex:1;border:0;border-radius:8px;background:transparent;color:var(--muted);font-size:11px;font-weight:700}
+.authTabs button.active{background:var(--surface);color:var(--text);box-shadow:0 1px 3px rgba(20,26,40,.08)}
+.authTitle{font-size:22px;margin:0 0 5px;letter-spacing:-.4px}.authSub{font-size:10px;color:var(--muted);margin-bottom:20px}
+.form{display:grid;gap:11px}.two{grid-template-columns:1fr 1fr}
+.field label{display:block;font-size:9px;color:var(--muted);font-weight:800;margin:0 2px 5px}
+.field input,.field select{width:100%;height:42px;border:1px solid var(--line2);border-radius:9px;background:var(--surface);color:var(--text);padding:0 11px;outline:none;font-size:11px}
+.field input:focus,.field select:focus{border-color:#a5b1ff;box-shadow:0 0 0 3px rgba(75,103,242,.08)}
+.authMsg{font-size:10px;border-radius:9px;padding:9px 10px;margin-top:9px}
+.authMsg.err{background:var(--danger-soft);color:var(--danger)}
+.authMsg.ok{background:var(--success-soft);color:var(--success)}
+.roleGrid{display:grid;grid-template-columns:1fr 1fr;gap:8px;max-height:260px;overflow:auto;padding:1px}
+.roleCard{border:1px solid var(--line);border-radius:11px;background:var(--surface2);padding:11px;cursor:pointer;transition:.15s}
+.roleCard:hover{border-color:#bac3ff}.roleCard.active{background:var(--accent-soft);border-color:#aab5ff}
+.roleCard b{display:block;font-size:11px}.roleCard span{font-size:9px;color:var(--muted)}
+.qList{display:grid;gap:9px;max-height:300px;overflow:auto}.qCard{border:1px solid var(--line);border-radius:11px;padding:11px;background:var(--surface2)}
+.qCard b{display:block;font-size:10px;margin-bottom:7px}.options{display:flex;gap:6px;flex-wrap:wrap}.option{border:1px solid var(--line2);background:var(--surface);border-radius:8px;padding:6px 8px;font-size:9px;color:var(--muted)}
+.option.active{background:var(--accent-soft);border-color:#b6c0ff;color:var(--accent)}
+.authActions{display:flex;gap:8px;justify-content:flex-end;margin-top:auto;padding-top:18px}
+
+.shell{min-height:100vh;display:grid;grid-template-columns:var(--sidebar) minmax(0,1fr)}
+.sidebar{height:100vh;position:sticky;top:0;background:var(--surface);border-left:1px solid var(--line);padding:14px 12px;display:flex;flex-direction:column;z-index:30}
+.brand{display:flex;align-items:center;gap:10px;padding:4px 5px 16px}
+.brandMark{width:36px;height:36px;border-radius:11px;background:#151822;color:#fff;display:grid;place-items:center;font-size:13px;font-weight:900}
+[data-theme="dark"] .brandMark{background:#f1f4f8;color:#151822}
+.brand b{font-size:12px;display:block}.brand span{font-size:9px;color:var(--muted);display:block}
+.nav{display:grid;gap:3px;margin-top:5px}
+.nav button{width:100%;height:38px;border:0;border-radius:9px;background:transparent;color:var(--muted);display:flex;align-items:center;gap:10px;padding:0 10px;font-size:11px;font-weight:650;text-align:right}
+.nav button:hover{background:var(--surface3);color:var(--text)}
+.nav button.active{background:var(--accent-soft);color:var(--accent)}
+.nav .ico{width:20px;text-align:center;font-size:14px}
+.sideFoot{margin-top:auto;border-top:1px solid var(--line);padding-top:12px}
+.userMini{display:grid;grid-template-columns:34px 1fr auto;align-items:center;gap:8px}
+.avatar{width:34px;height:34px;border-radius:10px;background:var(--accent-soft);color:var(--accent);display:grid;place-items:center;font-weight:850}
+.userMini b{font-size:10px;display:block}.userMini span{font-size:9px;color:var(--muted);display:block}
+.main{min-width:0}
+.topbar{height:64px;position:sticky;top:0;z-index:25;display:flex;align-items:center;gap:9px;padding:9px 22px;background:rgba(247,248,250,.9);backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
+[data-theme="dark"] .topbar{background:rgba(15,18,24,.90)}
+.breadcrumb{font-size:10px;color:var(--muted);white-space:nowrap}
+.searchWrap{position:relative;flex:1;max-width:850px;margin-right:8px}
+.searchWrap input{width:100%;height:42px;border:1px solid var(--line2);border-radius:11px;background:var(--surface);color:var(--text);outline:none;padding:0 42px 0 72px;font-size:11px}
+.searchWrap input:focus{border-color:#a6b1ff;box-shadow:0 0 0 3px rgba(75,103,242,.08)}
+.searchWrap:before{content:"⌕";position:absolute;right:14px;top:4px;font-size:25px;color:var(--muted2)}
+.kbd{position:absolute;left:9px;top:9px;border:1px solid var(--line);background:var(--surface3);color:var(--muted);border-radius:7px;font-size:8px;padding:2px 6px}
+.searchPanel{display:none;position:absolute;top:48px;right:0;left:0;background:var(--surface);border:1px solid var(--line);border-radius:13px;box-shadow:var(--shadow-lg);padding:6px;max-height:62vh;overflow:auto;z-index:80}
+.searchPanel.open{display:block}
+.searchItem{display:grid;grid-template-columns:1fr auto;gap:10px;padding:10px 11px;border-radius:9px;cursor:pointer}
+.searchItem:hover{background:var(--surface3)}
+.searchItem b{display:block;font-size:11px}.searchItem span{font-size:9px;color:var(--muted)}.score{font-size:9px;color:var(--success);align-self:center}
+
+.page{display:none;max-width:1240px;margin:auto;padding:30px 32px 70px}
+.page.active{display:block;animation:fade .18s ease}
+.hero{background:var(--surface);border:1px solid var(--line);border-radius:var(--r2);padding:28px 30px;position:relative;overflow:hidden}
+.hero:after{content:"";position:absolute;width:230px;height:230px;border-radius:50%;border:44px solid var(--accent-soft);opacity:.45;left:-115px;top:-120px}
+.heroEyebrow{font-size:9px;letter-spacing:.7px;color:var(--accent);font-weight:900}
+.hero h1{font-size:34px;line-height:1.4;letter-spacing:-.8px;margin:6px 0 8px;max-width:780px}
+.hero p{font-size:11px;color:var(--muted);max-width:760px;margin:0}
+.heroSearch{position:relative;max-width:900px;margin-top:20px}
+.heroSearch input{width:100%;height:56px;border:1px solid var(--line2);border-radius:14px;background:var(--surface2);color:var(--text);outline:none;padding:0 48px 0 14px;font-size:13px}
+.heroSearch:before{content:"⌕";position:absolute;right:15px;top:5px;font-size:30px;color:var(--muted2)}
+.exampleRow{display:flex;gap:6px;flex-wrap:wrap;margin-top:9px}
+.example{border:1px solid var(--line);background:var(--surface2);color:var(--muted);border-radius:8px;padding:5px 8px;font-size:9px}
+.metrics{display:grid;grid-template-columns:repeat(4,1fr);gap:9px;margin-top:12px}
+.metric{border:1px solid var(--line);background:var(--surface);border-radius:13px;padding:12px 14px}
+.metric b{font-size:19px;display:block;line-height:1.2}.metric span{font-size:9px;color:var(--muted)}
+.section{margin-top:25px}.sectionHead{display:flex;justify-content:space-between;align-items:flex-end;gap:12px;margin-bottom:10px}
+.sectionHead h2{font-size:15px;margin:0}.sectionHead p{font-size:9px;color:var(--muted);margin:1px 0 0}
+.grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:9px}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:13px;padding:14px;transition:.15s}
+.card.click{cursor:pointer}.card.click:hover{border-color:#cfd4df;transform:translateY(-1px);box-shadow:0 7px 18px rgba(20,26,40,.04)}
+.cardTop{display:flex;align-items:flex-start;justify-content:space-between;gap:8px}
+.card h3{font-size:12px;line-height:1.65;margin:8px 0 4px}.card p{font-size:9px;color:var(--muted);margin:0}
+.count{font-size:9px;color:var(--muted)}
+.filters{display:flex;gap:6px;flex-wrap:wrap}
+.filter{border:1px solid var(--line);background:var(--surface);border-radius:8px;padding:6px 9px;color:var(--muted);font-size:9px}
+.filter.active{background:var(--accent-soft);color:var(--accent);border-color:#c5cdff}
+
+.articleLayout{display:grid;grid-template-columns:minmax(0,1fr) 286px;gap:16px;align-items:start}
+.articleMain{min-width:0}.articleAside{position:sticky;top:82px;display:grid;gap:9px}
+.articleHead{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:20px 22px}
+.backBtn{border:0;background:transparent;color:var(--muted);padding:0;font-size:10px;font-weight:750}
+.backBtn:hover{color:var(--text)}
+.articleTitle{font-size:26px;line-height:1.45;letter-spacing:-.5px;margin:14px 0 7px}
+.meta{display:flex;gap:6px;flex-wrap:wrap}
+.sample{font-size:10px;color:var(--muted);margin-top:8px}
+.cover{width:100%;max-height:430px;object-fit:contain;background:#fff;border:1px solid var(--line);border-radius:12px;margin-top:14px;padding:8px}
+.response{background:var(--surface);border:1px solid var(--line);border-radius:16px;overflow:hidden;margin-top:10px}
+.responseBar{padding:12px 14px;border-bottom:1px solid var(--line);background:var(--surface2);display:flex;align-items:center;justify-content:space-between}
+.responseBar b{font-size:11px}.responseBar span{display:block;font-size:8px;color:var(--muted);font-weight:700;letter-spacing:.5px}
+.answer{padding:20px 22px;line-height:2.05;font-size:12px;white-space:pre-wrap}
+.inlineUrl{display:inline-block;direction:ltr;unicode-bidi:isolate;color:var(--accent);font-weight:700;text-decoration:none;background:var(--accent-soft);border:1px solid #dfe4ff;border-radius:6px;padding:1px 5px;margin:1px 3px}
+.internal{margin-top:10px;border:1px solid #f0dfb5;background:var(--warn-soft);color:var(--warn);border-radius:13px;padding:12px 14px;font-size:9px}
+.asideBox{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:13px}
+.asideLabel{font-size:8px;color:var(--muted);font-weight:900;letter-spacing:.5px;margin-bottom:8px}
+.actionBox{background:var(--accent-soft);border:1px solid #dfe4ff;border-radius:11px;padding:11px}
+.actionBox b{display:block;font-size:11px;margin-bottom:8px}.actionBox code{direction:ltr;unicode-bidi:isolate;display:block;background:var(--surface);border:1px solid var(--line);padding:6px 7px;border-radius:7px;font-size:8px;color:var(--muted);overflow-wrap:anywhere;margin-top:7px}
+.actionLink{height:36px;border-radius:9px;background:var(--accent);color:#fff;text-decoration:none;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:800}
+.sourceLink{display:flex;justify-content:space-between;align-items:center;gap:8px;text-decoration:none;padding:8px 9px;border:1px solid var(--line);border-radius:9px;font-size:9px}
+.related{display:grid;gap:6px}.related button{border:1px solid var(--line);background:var(--surface2);color:var(--text);border-radius:8px;padding:7px 8px;text-align:right;font-size:9px}
+.gallery{display:grid;grid-template-columns:repeat(2,1fr);gap:9px}.shot{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:8px}.shot img{width:100%;height:220px;object-fit:contain;background:#fff;border-radius:8px}.shot span{font-size:8px;color:var(--muted)}
+
+.trainingHero{display:grid;grid-template-columns:1fr 250px;gap:10px}.progressCard{background:var(--surface);border:1px solid var(--line);border-radius:18px;padding:17px;display:grid;place-items:center}.progressRing{--p:0%;width:118px;height:118px;border-radius:50%;background:conic-gradient(var(--accent) var(--p),var(--surface3) 0);display:grid;place-items:center;position:relative}.progressRing:after{content:"";position:absolute;inset:10px;border-radius:50%;background:var(--surface)}.progressRing b{z-index:2;font-size:21px}
+.modules{display:grid;gap:8px;margin-top:16px}.module{background:var(--surface);border:1px solid var(--line);border-radius:13px;padding:12px;display:grid;grid-template-columns:38px 1fr auto;gap:10px;align-items:start}.moduleNum{width:36px;height:36px;border-radius:10px;background:var(--accent-soft);color:var(--accent);display:grid;place-items:center;font-weight:900}.module h3{font-size:11px;margin:0}.module p{font-size:9px;color:var(--muted);margin:2px 0 0}.moduleDetail{display:none;grid-column:2/4;padding-top:9px;border-top:1px dashed var(--line)}.module.open .moduleDetail{display:block}.exercise{background:#f8f6ff;border:1px solid #ece7ff;border-radius:9px;padding:9px;font-size:9px;margin-top:7px}[data-theme="dark"] .exercise{background:#1c1930;border-color:#30284e}
+
+.adminTop{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px}.adminStats{display:grid;grid-template-columns:repeat(4,1fr);gap:9px;margin-bottom:12px}.adminStat{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:12px}.adminStat b{font-size:18px;display:block}.adminStat span{font-size:8px;color:var(--muted)}
+.tableWrap{background:var(--surface);border:1px solid var(--line);border-radius:14px;overflow:auto}
+table{width:100%;border-collapse:collapse;font-size:9px}th,td{padding:10px 11px;border-bottom:1px solid var(--line);text-align:right;white-space:nowrap}th{background:var(--surface2);color:var(--muted);font-size:8px}.roleSelect{height:31px;border:1px solid var(--line);border-radius:8px;background:var(--surface);color:var(--text);font-size:9px}
+.pending{color:var(--warn);background:var(--warn-soft)}.activeStatus{color:var(--success);background:var(--success-soft)}.disabledStatus{color:var(--danger);background:var(--danger-soft)}
+.sbadge{padding:3px 6px;border-radius:7px;font-size:8px;font-weight:800}
+
+.pendingView{max-width:680px;margin:60px auto;background:var(--surface);border:1px solid var(--line);border-radius:20px;padding:36px;text-align:center;box-shadow:var(--shadow)}
+.pendingIcon{width:62px;height:62px;border-radius:18px;background:var(--warn-soft);color:var(--warn);display:grid;place-items:center;margin:auto;font-size:26px}.pendingView h2{font-size:20px;margin:17px 0 6px}.pendingView p{font-size:10px;color:var(--muted)}
+
+.command{display:none;position:fixed;inset:0;background:rgba(11,15,22,.48);backdrop-filter:blur(6px);z-index:120}.command.open{display:grid;place-items:start center}.commandBox{width:min(700px,calc(100% - 28px));margin-top:10vh;background:var(--surface);border:1px solid var(--line);border-radius:18px;box-shadow:var(--shadow-lg);padding:8px}.commandBox input{width:100%;height:52px;border:0;border-bottom:1px solid var(--line);outline:none;background:transparent;color:var(--text);padding:0 11px;font-size:13px}.cmdResults{max-height:60vh;overflow:auto;padding-top:5px}
+.toast{position:fixed;left:18px;bottom:18px;z-index:200;background:#151822;color:#fff;border-radius:10px;padding:9px 12px;font-size:9px;box-shadow:var(--shadow);opacity:0;transform:translateY(8px);transition:.18s;pointer-events:none}.toast.show{opacity:1;transform:none}
+.loader{width:16px;height:16px;border:2px solid var(--line2);border-top-color:var(--accent);border-radius:50%;animation:spin .7s linear infinite}
+
+@media(max-width:1080px){:root{--sidebar:74px}.brand>div:last-child,.nav button span:last-child,.sideFoot .userMini>div:nth-child(2){display:none}.nav button{justify-content:center}.userMini{grid-template-columns:34px auto}.grid{grid-template-columns:repeat(2,1fr)}.articleLayout{grid-template-columns:1fr}.articleAside{position:static;grid-template-columns:repeat(2,1fr)}.trainingHero{grid-template-columns:1fr}}
+@media(max-width:760px){.shell{grid-template-columns:1fr}.sidebar{position:fixed;bottom:0;top:auto;right:0;left:0;height:auto;border-left:0;border-top:1px solid var(--line);padding:6px;z-index:50}.brand,.sideFoot{display:none}.nav{display:flex;justify-content:space-around;margin:0}.nav button{width:auto;padding:0 10px}.main{padding-bottom:58px}.topbar{padding:8px 10px}.breadcrumb,.kbd{display:none}.page{padding:18px 12px 42px}.auth{padding:0}.authCard{grid-template-columns:1fr;min-height:100vh;border-radius:0;border:0}.authBrand{display:none}.authPanel{padding:25px 18px}.grid,.metrics,.adminStats{grid-template-columns:1fr 1fr}.gallery{grid-template-columns:1fr}.articleAside{grid-template-columns:1fr}.articleTitle{font-size:22px}}
+@media(max-width:480px){.grid,.metrics,.adminStats{grid-template-columns:1fr}.two{grid-template-columns:1fr}.roleGrid{grid-template-columns:1fr}}
+</style>
+
+<style id="answerhub-v9-polish">
+:root{
+  --bg:#f6f8fc;--surface:#ffffff;--surface2:#fbfcff;--surface3:#f1f4f9;
+  --text:#121722;--muted:#697386;--muted2:#9aa4b2;--line:#e7ebf1;--line2:#dce2ea;
+  --accent:#425ee9;--accent2:#324ad0;--accent-soft:#eef2ff;
+  --shadow:0 10px 30px rgba(29,39,67,.06);--shadow-lg:0 24px 70px rgba(29,39,67,.12)
+}
+body{background:
+  radial-gradient(circle at 12% 0%,rgba(66,94,233,.055),transparent 27%),
+  var(--bg)}
+.authCard,.hero,.articleHead,.response,.asideBox,.card,.metric,.progressCard,.module,.tableWrap{
+  box-shadow:0 1px 2px rgba(16,24,40,.018)
+}
+.authBrand{background:#111827}
+.brandMark{background:#111827}
+.hero:after{opacity:.28}
+.answer{font-size:13px;line-height:2.08}
+.response{box-shadow:0 8px 22px rgba(20,30,60,.035)}
+.actionBox{background:#f3f5ff}
+.inlineUrl{background:#f2f4ff}
+.nav button.active{box-shadow:inset -3px 0 0 var(--accent)}
+.releaseBanner{
+  position:fixed;right:50%;transform:translateX(50%);bottom:18px;z-index:180;
+  display:none;align-items:center;gap:10px;padding:9px 12px;border:1px solid #d9defd;
+  background:#fff;color:#243050;border-radius:11px;box-shadow:var(--shadow);font-size:10px
+}
+.releaseBanner.show{display:flex}
+.releaseBanner b{color:var(--accent)}
+[data-theme="dark"] .releaseBanner{background:#171d27;color:#e8edf6;border-color:#2c3863}
+.connectionCard{
+  max-width:560px;margin:70px auto;background:var(--surface);border:1px solid var(--line);
+  border-radius:18px;padding:30px;text-align:center;box-shadow:var(--shadow)
+}
+.connectionCard h2{font-size:18px;margin:10px 0 5px}.connectionCard p{font-size:10px;color:var(--muted)}
+</style>
+
+</head>
+<body>
+<div id="root"></div>
+<div class="command" id="command"><div class="commandBox"><input id="cmdInput" placeholder="چی می‌خوای پیدا کنی؟"><div class="cmdResults" id="cmdResults"></div></div></div>
+<div class="toast" id="toast"></div>
+<script id="fallback" type="application/json">{"articles": [], "media": [], "newJoiner": [], "config": {}, "meta": {"version": "9.1.0"}, "roles": [{"Role ID": "employee", "Role Label FA": "نیروی شرکت", "Description": "دسترسی کامل به پایگاه دانش و راهنماها", "Default Landing": "home"}, {"Role ID": "new_joiner", "Role Label FA": "نیو جوینر", "Description": "مسیر آموزشی به همراه پایگاه دانش", "Default Landing": "newjoiner"}], "questions": [{"Question ID": "Q-EMP-1", "Role ID": "employee", "Order": "1", "Question Type": "select", "Question FA": "بیشتر در کدام حوزه کار می‌کنی؟", "Placeholder / Options": "پشتیبانی|ثبت‌نام|مالی|فنی|اکانت منیجر|مانیتورینگ|ترکیبی", "Required": "TRUE", "Answer Key": ""}, {"Question ID": "Q-NJ-1", "Role ID": "new_joiner", "Order": "1", "Question Type": "select", "Question FA": "قرار است در کدام تیم شروع به کار کنی؟", "Placeholder / Options": "پشتیبانی|ثبت‌نام|مالی|فنی|اکانت منیجر|مانیتورینگ|هنوز مشخص نیست", "Required": "TRUE", "Answer Key": ""}, {"Question ID": "Q-NJ-2", "Role ID": "new_joiner", "Order": "2", "Question Type": "select", "Question FA": "قبلاً با CRM یا سیستم تیکتینگ کار کرده‌ای؟", "Placeholder / Options": "بله|خیر", "Required": "TRUE", "Answer Key": ""}]}</script>
+<script>
+
+const SUPABASE_URL="https://xcmgbgthhpstxmmmhvqy.supabase.co";
+const SUPABASE_KEY="sb_publishable_9PyN5TZ2lTm1KKPN_MwAog_MjOeHv9U";
+const BUILD="9.1.0";
+const FALLBACK=JSON.parse(document.getElementById("fallback").textContent);
+const $=q=>document.querySelector(q), $$=q=>[...document.querySelectorAll(q)];
+const S={
+  db:{articles:[],media:[],newJoiner:[],config:{},meta:{version:BUILD}},
+  roles:[...(FALLBACK.roles||[])],
+  questions:[...(FALLBACK.questions||[])],
+  session:null,me:null,access:null,
+  theme:localStorage.getItem("ah-theme")||"light",
+  category:"",
+  training:new Set(),
+  sheetAt:null,
+  syncing:null,
+  releaseAvailable:null
+};
+document.documentElement.dataset.theme=S.theme;
+
+function esc(s){return String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]))}
+function norm(s){return String(s||"").toLowerCase().replace(/[يى]/g,"ی").replace(/ك/g,"ک").replace(/[ۀة]/g,"ه").replace(/\u200c/g," ").replace(/[^\p{L}\p{N}\s]/gu," ").replace(/\s+/g," ").trim()}
+const syn=[
+ ["شبا","iban","شماره حساب","بانک"],["تسویه","واریز","پول","پرداخت"],
+ ["سرچ","جستجو","اپ","نمایش"],["forbidden","فوربیدن","403","ip","آی پی"],
+ ["callback","کالبک","آدرس بازگشت"],["ثبت نام","ثبت‌نام","onboarding"],
+ ["فعال سازی","فعال‌سازی","activating","لایو"],["کنسل","لغو","cancel"],
+ ["تیکت","درخواست پشتیبانی","support"],["مودیان","مالیات","فاکتور","صورتحساب"],
+ ["cms","ووکامرس","وردپرس","تکنولوژی"]
+].map(g=>g.map(norm));
+function expand(q){let t=new Set(norm(q).split(" ").filter(Boolean));syn.forEach(g=>{if(g.some(x=>[...t].some(y=>x.includes(y)||y.includes(x))))g.forEach(x=>x.split(" ").forEach(y=>t.add(y)))});return[...t]}
+function trigrams(s){s="  "+norm(s)+"  ";let a=new Set;for(let i=0;i<s.length-2;i++)a.add(s.slice(i,i+3));return a}
+function jac(a,b){if(!a.size||!b.size)return 0;let i=0;a.forEach(x=>{if(b.has(x))i++});return i/(a.size+b.size-i)}
+function score(a,q){
+  const nq=norm(q);if(!nq)return 0;
+  const title=norm(a["عنوان مقاله"]),kw=norm(a["کلمات کلیدی"]),al=norm(a["عبارت‌های مشابه / Semantic Aliases"]),
+        ex=norm(a["نمونه سؤال‌ها"]),tags=norm(a["تگ‌ها"]),cat=norm(a["دسته‌بندی"]);
+  let s=0;
+  if(title.includes(nq))s+=50;if(al.includes(nq))s+=40;if(kw.includes(nq))s+=30;if(ex.includes(nq))s+=24;
+  expand(q).forEach(t=>{if(title.includes(t))s+=10;if(al.includes(t))s+=11;if(kw.includes(t))s+=8;if(ex.includes(t))s+=6;if(tags.includes(t))s+=4});
+  s+=jac(trigrams(nq),trigrams([title,al,kw,ex,tags,cat].join(" ")))*34;
+  return s*(.75+(parseFloat(a["وزن جستجو"]||70)/280))
+}
+function allowedArticles(){
+  if(S.me?.status!=="active"||!S.access)return[];
+  let arr=S.db.articles||[];
+  const cats=S.access.allowed_categories||[];
+  if(cats.includes("*"))return arr;
+  return arr.filter(a=>cats.includes(a["دسته‌بندی"]))
+}
+function search(q,n=12){return allowedArticles().map(a=>({a,s:score(a,q)})).filter(x=>x.s>5).sort((x,y)=>y.s-x.s).slice(0,n)}
+function roleLabel(id){if(id==="admin")return"ادمین";return S.roles.find(r=>r["Role ID"]===id)?.["Role Label FA"]||id||"—"}
+function toast(t){const e=$("#toast");if(!e)return;e.textContent=t;e.classList.add("show");setTimeout(()=>e.classList.remove("show"),1900)}
+
+async function api(path,{method="GET",body=null,auth=true,prefer="",headers={}}={}){
+  const h={apikey:SUPABASE_KEY,"Content-Type":"application/json",...headers};
+  if(auth&&S.session?.access_token)h.Authorization="Bearer "+S.session.access_token;
+  if(prefer)h.Prefer=prefer;
+  const ctrl=new AbortController(),timer=setTimeout(()=>ctrl.abort(),25000);
+  try{
+    const r=await fetch(SUPABASE_URL+path,{method,headers:h,body:body?JSON.stringify(body):undefined,signal:ctrl.signal,cache:"no-store"});
+    const text=await r.text();let data=null;try{data=text?JSON.parse(text):null}catch{data=text}
+    if(!r.ok){const err=new Error(data?.message||data?.error_description||data?.error||data?.hint||text||("HTTP "+r.status));err.status=r.status;err.data=data;throw err}
+    return data
+  }finally{clearTimeout(timer)}
+}
+function saveSession(x){
+  S.session=x||null;
+  if(x){
+    x.expires_at=x.expires_at||Math.floor(Date.now()/1000)+(x.expires_in||3600);
+    localStorage.setItem("ah-session",JSON.stringify(x))
+  }else localStorage.removeItem("ah-session")
+}
+async function refreshSession(){
+  if(!S.session?.refresh_token)return false;
+  try{
+    const d=await api("/auth/v1/token?grant_type=refresh_token",{method:"POST",body:{refresh_token:S.session.refresh_token},auth:false});
+    saveSession(d);return true
+  }catch{return false}
+}
+async function rpc(name,body={}){
+  try{return await api("/rest/v1/rpc/"+name,{method:"POST",body})}
+  catch(e){if(e.status===401&&await refreshSession())return api("/rest/v1/rpc/"+name,{method:"POST",body});throw e}
+}
+function clearSensitive(){
+  S.db={articles:[],media:[],newJoiner:[],config:{},meta:{version:BUILD}};
+  S.category="";S.sheetAt=null;S.training=new Set();
+  const cmd=$("#command");if(cmd)cmd.classList.remove("open");
+  const cr=$("#cmdResults");if(cr)cr.innerHTML="";
+}
+async function logEvent(event,extra={}){
+  if(!S.session?.user?.id)return;
+  const body={
+    user_id:S.session.user.id,
+    session_id:S.session.access_token?.slice(-12)||"",
+    event,app_version:BUILD,client:navigator.userAgent.slice(0,140),extra
+  };
+  Object.assign(body,extra);
+  try{await api("/rest/v1/activity_logs",{method:"POST",body,prefer:"return=minimal"})}catch{}
+}
+
+function mapPublicRole(r){
+  return {"Role ID":r.role_id,"Role Label FA":r.role_label_fa,"Description":r.description||"","Default Landing":r.default_landing||"home"}
+}
+function mapQuestion(row){
+  const p=row.payload||{};
+  return {
+    "Question ID":row.question_id,"Role ID":row.role_id,
+    "Order":p["Order"]||"0","Question Type":p["Question Type"]||"select",
+    "Question FA":p["Question FA"]||"","Placeholder / Options":p["Placeholder / Options"]||"",
+    "Required":p["Required"]||"FALSE","Answer Key":p["Answer Key"]||"",
+    "Help Text":p["Help Text"]||""
+  }
+}
+async function loadPublic(){
+  try{
+    const [roles,questions]=await Promise.all([
+      api("/rest/v1/app_roles?active=eq.true&role_id=neq.admin&select=role_id,role_label_fa,description,default_landing&order=role_id.asc",{auth:false}),
+      api("/rest/v1/onboarding_questions?active=eq.true&select=question_id,role_id,payload&order=role_id.asc,question_id.asc",{auth:false})
+    ]);
+    if(Array.isArray(roles)&&roles.length)S.roles=roles.map(mapPublicRole);
+    if(Array.isArray(questions)&&questions.length)S.questions=questions.map(mapQuestion);
+    return true
+  }catch{return false}
+}
+
+async function syncContent(silent=false){
+  if(!S.session?.access_token||S.me?.status!=="active")return false;
+  if(S.syncing)return S.syncing;
+  S.syncing=(async()=>{
+    try{
+      const d=await api("/functions/v1/answerhub-data");
+      if(!d?.ok)throw new Error(d?.error||"content_error");
+      S.me={...(S.me||{}),...(d.profile||{}),email:d.email||S.me?.email};
+      S.access=d.access||S.access;
+      S.db={articles:d.articles||[],media:d.media||[],newJoiner:d.newJoiner||[],config:d.config||{},meta:d.meta||{version:BUILD}};
+      S.sheetAt=new Date(d.meta?.synced_at||Date.now());
+      if(document.querySelector(".shell")){
+        const current=document.querySelector(".page.active")?.id?.replace("page-","")||"home";
+        const q=$("#topSearch")?.value||"";
+        renderApp();
+        if(current!=="article")nav(current);
+        if($("#topSearch"))$("#topSearch").value=q
+      }
+      if(!silent)toast("آخرین تغییرات دریافت شد ✓");
+      return true
+    }catch(e){
+      if(e.status===403||e.message==="pending"){
+        try{
+          const a=await rpc("get_my_access");
+          S.me=a.profile||S.me;S.access=a.access||null;
+          if(S.me?.status!=="active"){clearSensitive();renderPending();return false}
+        }catch{}
+      }
+      if(!silent)toast("دریافت نسخه جدید ناموفق بود");
+      throw e
+    }finally{S.syncing=null}
+  })();
+  return S.syncing
+}
+
+async function loadTrainingProgress(){
+  if(!S.session?.user?.id)return;
+  try{
+    const rows=await api("/rest/v1/training_progress?user_id=eq."+encodeURIComponent(S.session.user.id)+"&select=module_id");
+    S.training=new Set((rows||[]).map(x=>x.module_id))
+  }catch{S.training=new Set()}
+}
+async function setTrainingDone(moduleId,done){
+  const uid=S.session?.user?.id;if(!uid)return;
+  if(done){
+    await api("/rest/v1/training_progress",{method:"POST",body:{user_id:uid,module_id:moduleId},prefer:"resolution=merge-duplicates,return=minimal"})
+  }else{
+    await api("/rest/v1/training_progress?user_id=eq."+encodeURIComponent(uid)+"&module_id=eq."+encodeURIComponent(moduleId),{method:"DELETE",prefer:"return=minimal"})
+  }
+  done?S.training.add(moduleId):S.training.delete(moduleId);
+  S.me.new_joiner_progress=progress()
+}
+
+async function checkBuild(){
+  try{
+    const r=await api("/rest/v1/app_release_manifest?id=eq.1&select=current_build",{auth:false});
+    const b=r?.[0]?.current_build;
+    if(b&&b!==BUILD&&b!==S.releaseAvailable){
+      S.releaseAvailable=b;
+      const bar=$("#releaseBanner");if(bar){bar.classList.add("show");bar.querySelector("b").textContent="نسخه "+b+" آماده است"}
+    }
+  }catch{}
+}
+async function copyText(t){
+  try{if(navigator.clipboard?.writeText){await navigator.clipboard.writeText(t);return true}}catch{}
+  try{
+    const ta=document.createElement("textarea");ta.value=t;ta.style.position="fixed";ta.style.opacity="0";document.body.appendChild(ta);ta.focus();ta.select();
+    const ok=document.execCommand("copy");ta.remove();return ok
+  }catch{return false}
+}
+
+function answerFor(a){
+  let ans=String(a["پاسخ آماده برای پذیرنده"]||"").trim(),url=String(a["لینک اقدام مستقیم"]||"").trim(),label=String(a["برچسب اقدام"]||"لینک اقدام").trim();
+  if(url&&!ans.includes(url)){
+    const sig="با سپاس\nپشتیبانی پذیرندگان اسنپ‌پی",block=`${label}:\n${url}`;
+    ans=ans.includes(sig)?ans.replace(sig,`${block}\n\n${sig}`):`${ans}\n\n${block}`
+  }
+  return ans
+}
+function renderAnswer(text){
+  return String(text||"").split(/(https?:\/\/[^\s]+)/g).map((p,i)=>{
+    if(i%2===1){const clean=p.replace(/[)\],،؛]+$/,""),tail=p.slice(clean.length);return `<a class="inlineUrl" target="_blank" rel="noopener" href="${esc(clean)}">${esc(clean)}</a>${esc(tail)}`}
+    return esc(p)
+  }).join("").replace(/\n/g,"<br>")
+}
+function mediaFor(id){return(S.db.media||[]).filter(m=>m["Article ID"]===id).sort((a,b)=>parseFloat(a["ترتیب"]||0)-parseFloat(b["ترتیب"]||0))}
+
+function renderAuth(tab="login",step=1,state={}){
+  const root=$("#root"),login=tab==="login";
+  root.innerHTML=`<div class="auth"><div class="authCard fade">
+  <section class="authBrand"><div><div class="authLogo">S</div><h1>دانش درست،<br>در لحظه درست.</h1>
+  <p>Answer Hub پایگاه دانش زنده تیم Merchant Support است؛ محتوا، آموزش و دسترسی‌ها از یک نقطه مدیریت می‌شوند.</p>
+  <div class="authPerks"><div class="authPerk"><i>⌕</i><span>جستجوی مفهومی فارسی</span></div><div class="authPerk"><i>↗</i><span>لینک اقدام مستقیم داخل پاسخ</span></div><div class="authPerk"><i>↻</i><span>همیشه آخرین نسخه بدون نصب مجدد</span></div></div></div>
+  <div class="authFoot">SnappPay · Internal Knowledge System · v${BUILD}</div></section>
+  <section class="authPanel"><div class="authTabs"><button id="tabLogin" class="${login?"active":""}">ورود</button><button id="tabSignup" class="${!login?"active":""}">ثبت‌نام</button></div><div id="authBody"></div></section>
+  </div></div>`;
+  $("#tabLogin").onclick=()=>renderAuth("login");
+  $("#tabSignup").onclick=()=>renderAuth("signup",1,{});
+  const b=$("#authBody");
+  if(login){
+    b.innerHTML=`<h2 class="authTitle">خوش اومدی</h2><div class="authSub">با ایمیلی که ثبت‌نام کردی وارد شو.</div>
+    <div class="form"><div class="field"><label>ایمیل</label><input id="loginEmail" aria-label="ایمیل" type="email" autocomplete="username"></div>
+    <div class="field"><label>رمز عبور</label><input id="loginPass" aria-label="رمز عبور" type="password" autocomplete="current-password"></div>
+    <button class="btn primary" id="loginBtn">ورود به Answer Hub</button><div id="authMsg"></div></div>`;
+    $("#loginBtn").onclick=loginUser;return
+  }
+  renderSignupStep(step,state,b)
+}
+function showAuthMsg(t,ok=false){const e=$("#authMsg");if(e)e.innerHTML=`<div class="authMsg ${ok?"ok":"err"}">${esc(t)}</div>`}
+function renderSignupStep(step,state,b){
+  if(step===1){
+    b.innerHTML=`<h2 class="authTitle">ساخت حساب</h2><div class="authSub">اطلاعات اولیه را وارد کن؛ بعد نوع دسترسی را انتخاب می‌کنی.</div>
+    <div class="form two"><div class="field"><label>نام و نام خانوادگی</label><input id="sgName" aria-label="نام و نام خانوادگی"></div>
+    <div class="field"><label>Username</label><input id="sgUser" aria-label="نام کاربری"></div>
+    <div class="field" style="grid-column:1/-1"><label>ایمیل</label><input id="sgEmail" aria-label="ایمیل" type="email"></div>
+    <div class="field" style="grid-column:1/-1"><label>رمز عبور</label><input id="sgPass" aria-label="رمز عبور" type="password" minlength="8"></div></div>
+    <div class="authActions"><button class="btn primary" id="next1">ادامه</button></div><div id="authMsg"></div>`;
+    $("#next1").onclick=()=>{
+      const email=$("#sgEmail").value.trim(),x={...state,full_name:$("#sgName").value.trim(),username:$("#sgUser").value.trim(),email,password:$("#sgPass").value};
+      if(!x.full_name||!email||!$("#sgEmail").checkValidity()||x.password.length<8)return showAuthMsg("اطلاعات را کامل کن؛ رمز عبور حداقل ۸ کاراکتر باشد.");
+      renderSignupStep(2,x,b)
+    };return
+  }
+  if(step===2){
+    b.innerHTML=`<h2 class="authTitle">نوع دسترسی</h2><div class="authSub">این انتخاب مسیر شروع و آموزش تو را مشخص می‌کند.</div>
+    <div class="roleGrid">${S.roles.map(r=>`<div class="roleCard" data-role="${esc(r["Role ID"])}"><b>${esc(r["Role Label FA"])}</b><span>${esc(r["Description"]||"")}</span></div>`).join("")}</div>
+    <div class="authActions"><button class="btn" id="back2">برگشت</button><button class="btn primary" id="next2" disabled>ادامه</button></div>`;
+    let selected="";
+    $$(".roleCard").forEach(c=>c.onclick=()=>{$$(".roleCard").forEach(x=>x.classList.remove("active"));c.classList.add("active");selected=c.dataset.role;$("#next2").disabled=false});
+    $("#back2").onclick=()=>renderSignupStep(1,state,b);
+    $("#next2").onclick=()=>renderSignupStep(3,{...state,requested_role:selected},b);return
+  }
+  const qs=S.questions.filter(q=>q["Role ID"]===state.requested_role).sort((a,b)=>Number(a["Order"]||0)-Number(b["Order"]||0)),ans={};
+  b.innerHTML=`<h2 class="authTitle">چند سؤال کوتاه</h2><div class="authSub">برای تنظیم مسیر شروع کار؛ جواب‌ها توسط ادمین قابل مشاهده‌اند.</div>
+  <div class="qList">${qs.length?qs.map((q,i)=>`<div class="qCard" data-q="${esc(q["Question ID"])}"><b>${i+1}. ${esc(q["Question FA"])}</b>
+  ${q["Question Type"]==="text"?`<div class="field"><input class="qText" placeholder="${esc(q["Placeholder / Options"]||"")}"></div>`:
+  `<div class="options">${String(q["Placeholder / Options"]||"").split("|").filter(Boolean).map(o=>`<button class="option" type="button" data-a="${esc(o)}">${esc(o)}</button>`).join("")}</div>`}
+  ${q["Help Text"]?`<div class="muted" style="font-size:8px;margin-top:6px">${esc(q["Help Text"])}</div>`:""}</div>`).join(""):`<div class="empty">سؤال تکمیلی برای این نوع دسترسی تعریف نشده.</div>`}</div>
+  <div class="authActions"><button class="btn" id="back3">برگشت</button><button class="btn primary" id="finishSignup">ثبت‌نام</button></div><div id="authMsg"></div>`;
+  $$(".qCard").forEach(c=>{
+    c.querySelectorAll(".option").forEach(o=>o.onclick=()=>{c.querySelectorAll(".option").forEach(x=>x.classList.remove("active"));o.classList.add("active");ans[c.dataset.q]=o.dataset.a});
+    const t=c.querySelector(".qText");if(t)t.oninput=()=>ans[c.dataset.q]=t.value
+  });
+  $("#back3").onclick=()=>renderSignupStep(2,state,b);
+  $("#finishSignup").onclick=()=>{
+    const missing=qs.filter(q=>String(q["Required"]).toUpperCase()==="TRUE"&&!String(ans[q["Question ID"]]||"").trim());
+    if(missing.length)return showAuthMsg("لطفاً همه سؤال‌های اجباری را پاسخ بده.");
+    signupUser(state,qs,ans)
+  }
+}
+async function signupUser(state,qs,answers){
+  clearSensitive();
+  try{
+    $("#finishSignup").disabled=true;
+    const d=await api("/auth/v1/signup",{method:"POST",auth:false,body:{email:state.email,password:state.password,data:{full_name:state.full_name,username:state.username,requested_role:state.requested_role}}});
+    localStorage.setItem("ah-pending-onboarding",JSON.stringify({email:state.email.toLowerCase(),role:state.requested_role,qs,answers}));
+    if(d.session||d.access_token){saveSession(d.session||d);await submitPendingOnboarding();await bootAuthed()}
+    else showAuthMsg("حساب ساخته شد. ایمیل تأیید را باز کن؛ بعد از ورود، درخواستت برای تأیید ادمین نمایش داده می‌شود.",true)
+  }catch(e){showAuthMsg(e.message||"ثبت‌نام انجام نشد")}
+  finally{if($("#finishSignup"))$("#finishSignup").disabled=false}
+}
+async function loginUser(){
+  clearSensitive();
+  try{
+    $("#loginBtn").disabled=true;
+    const d=await api("/auth/v1/token?grant_type=password",{method:"POST",auth:false,body:{email:$("#loginEmail").value.trim(),password:$("#loginPass").value}});
+    saveSession(d);await submitPendingOnboarding();await bootAuthed()
+  }catch(e){
+    showAuthMsg(String(e.message||"").includes("Email not confirmed")?"اول ایمیل تأیید حسابت را باز کن.":"ایمیل یا رمز عبور درست نیست.")
+  }finally{if($("#loginBtn"))$("#loginBtn").disabled=false}
+}
+async function submitPendingOnboarding(){
+  const raw=localStorage.getItem("ah-pending-onboarding");
+  if(!raw||!S.session?.user?.id)return;
+  try{
+    const p=JSON.parse(raw);
+    if(p.email!==String(S.session.user.email||"").toLowerCase())return;
+    let total=0,correct=0;
+    for(const q of p.qs||[]){
+      const a=p.answers?.[q["Question ID"]]||"",key=q["Answer Key"]||"",passed=key?norm(a)===norm(key):null;
+      if(key){total++;if(passed)correct++}
+      await api("/rest/v1/onboarding_answers?on_conflict=user_id,question_id",{method:"POST",body:{
+        user_id:S.session.user.id,requested_role:p.role,question_id:q["Question ID"],question:q["Question FA"],answer:a,score:passed===true?100:0,passed
+      },prefer:"resolution=merge-duplicates,return=minimal"})
+    }
+    const sc=total?Math.round(correct/total*100):100;
+    try{await rpc("mark_onboarding_complete",{p_score:sc})}catch{}
+    localStorage.removeItem("ah-pending-onboarding")
+  }catch{}
+}
+
+function renderPending(){
+  const root=$("#root"),st=S.me?.status||"pending";
+  const title=st==="rejected"?"درخواست دسترسی رد شده":st==="disabled"?"دسترسی غیرفعال شده":"در انتظار تأیید ادمین";
+  const body=st==="pending"?"ثبت‌نامت کامل شده. ادمین باید حسابت را تأیید کند؛ بعد با همین ایمیل و رمز وارد می‌شوی.":"برای بررسی وضعیت با ادمین Answer Hub هماهنگ کن.";
+  root.innerHTML=`<div class="pendingView fade"><div class="pendingIcon">${st==="pending"?"⌛":"!"}</div><h2>${title}</h2><p>${body}</p>
+  <div style="margin-top:17px;display:flex;justify-content:center;gap:7px"><button class="btn" id="pendingRefresh">بررسی مجدد</button><button class="btn danger" id="pendingLogout">خروج</button></div></div>`;
+  $("#pendingRefresh").onclick=bootAuthed;$("#pendingLogout").onclick=logout
+}
+function renderConnectionError(){
+  $("#root").innerHTML=`<div class="connectionCard fade"><div class="authLogo" style="margin:auto">S</div><h2>اتصال به Answer Hub برقرار نشد</h2>
+  <p>برای امنیت، نسخه قدیمی محتوا نمایش داده نمی‌شود. اینترنت/VPN را بررسی کن و دوباره تلاش کن.</p>
+  <div style="margin-top:16px;display:flex;gap:7px;justify-content:center"><button class="btn primary" id="retryBtn">تلاش مجدد</button><button class="btn" id="logoutErr">خروج</button></div></div>`;
+  $("#retryBtn").onclick=bootAuthed;$("#logoutErr").onclick=logout
+}
+async function boot(){
+  clearSensitive();
+  await loadPublic();
+  const raw=localStorage.getItem("ah-session");
+  if(raw){try{S.session=JSON.parse(raw);if(S.session.expires_at&&Date.now()/1000>S.session.expires_at-60)await refreshSession()}catch{saveSession(null)}}
+  if(S.session?.access_token)await bootAuthed();else renderAuth()
+}
+async function bootAuthed(){
+  try{
+    const d=await rpc("get_my_access");
+    if(!d?.ok||!d.profile){saveSession(null);return renderAuth()}
+    S.me={...d.profile,email:d.email};S.access=d.access||null;
+    if(S.me.status!=="active"){await submitPendingOnboarding();return renderPending()}
+    const ok=await syncContent(true);
+    if(!ok)return;
+    await loadTrainingProgress();
+    renderApp();
+    const landing=S.access?.default_landing==="newjoiner"?"training":S.access?.default_landing==="admin"?"admin":"home";
+    if(landing!=="home")nav(landing);
+    await logEvent("login")
+  }catch(e){
+    if(e.status===401&&await refreshSession())return bootAuthed();
+    renderConnectionError()
+  }
+}
+async function logout(){
+  try{await api("/auth/v1/logout",{method:"POST"})}catch{}
+  saveSession(null);clearSensitive();S.me=null;S.access=null;renderAuth()
+}
+
+function renderApp(){
+  const root=$("#root");
+  root.innerHTML=`<div class="shell"><aside class="sidebar"><div class="brand"><div class="brandMark">S</div><div><b>Answer Hub</b><span>Merchant Knowledge</span></div></div>
+  <nav class="nav" id="nav"></nav><div class="sideFoot"><div class="userMini"><div class="avatar">${esc((S.me.full_name||"U").slice(0,1))}</div><div><b>${esc(S.me.full_name||S.me.username||"کاربر")}</b><span>${esc(roleLabel(S.me.role))}</span></div><button class="iconBtn" id="logoutBtn" title="خروج">↪</button></div></div></aside>
+  <main class="main"><header class="topbar"><div class="breadcrumb" id="crumb">خانه</div><div class="searchWrap"><input id="topSearch" placeholder="هر جور راحتی بنویس؛ مثلاً «تسویه نیومده»"><span class="kbd">Ctrl K</span><div class="searchPanel" id="searchPanel"></div></div>
+  <span class="status"><i class="dot live"></i><span id="liveText">Live</span></span><button class="iconBtn" id="syncBtn" title="دریافت آخرین تغییرات">↻</button><button class="iconBtn" id="themeBtn" title="تغییر تم">◐</button></header>
+  <section class="page active" id="page-home"></section><section class="page" id="page-knowledge"></section><section class="page" id="page-article"></section><section class="page" id="page-training"></section><section class="page" id="page-admin"></section></main></div>
+  <div class="releaseBanner" id="releaseBanner"><b>نسخه جدید آماده است</b><span>برای دریافت رابط جدید، اپ را یک‌بار ببند و دوباره باز کن.</span></div>`;
+  const items=[["home","⌂","خانه"],["knowledge","⌕","پایگاه دانش"]];
+  if(S.access?.can_use_new_joiner)items.push(["training","🎓","New Joiner"]);
+  if(S.access?.can_manage_users)items.push(["admin","▦","مدیریت کاربران"]);
+  $("#nav").innerHTML=items.map(x=>`<button data-page="${x[0]}" class="${x[0]==="home"?"active":""}"><span class="ico">${x[1]}</span><span>${x[2]}</span></button>`).join("");
+  $$("#nav button").forEach(b=>b.onclick=()=>nav(b.dataset.page));
+  $("#logoutBtn").onclick=logout;
+  $("#themeBtn").onclick=()=>{S.theme=S.theme==="light"?"dark":"light";document.documentElement.dataset.theme=S.theme;localStorage.setItem("ah-theme",S.theme)};
+  $("#syncBtn").onclick=async()=>{try{await syncContent(false);await loadTrainingProgress();renderHome();renderKnowledge();renderTraining()}catch{}};
+  $("#topSearch").oninput=()=>showSearch($("#topSearch").value,$("#searchPanel"));
+  $("#topSearch").onfocus=()=>{if($("#topSearch").value.trim())showSearch($("#topSearch").value,$("#searchPanel"))};
+  renderHome();renderKnowledge();renderTraining();if(S.access?.can_manage_users)renderAdmin();updateLiveText();checkBuild()
+}
+function updateLiveText(){const e=$("#liveText");if(e)e.textContent=S.sheetAt?"Live · "+S.sheetAt.toLocaleTimeString("fa-IR",{hour:"2-digit",minute:"2-digit"}):"Live"}
+function nav(page){
+  $$(".page").forEach(p=>p.classList.remove("active"));$("#page-"+page)?.classList.add("active");
+  $$("#nav button").forEach(b=>b.classList.toggle("active",b.dataset.page===page));
+  const titles={home:"خانه",knowledge:"پایگاه دانش",training:"New Joiner",admin:"مدیریت کاربران",article:"مقاله"};
+  $("#crumb").textContent=titles[page]||"";
+  if(page==="admin")renderAdmin();if(page==="training")renderTraining();
+  window.scrollTo({top:0,behavior:"smooth"})
+}
+function articleCard(a){return `<div class="card click articleCard" data-id="${esc(a.ID)}"><div class="cardTop"><span class="pill">${esc(a["دسته‌بندی"])}</span><span class="count">${esc(a["اولویت"]||"")}</span></div><h3>${esc(a["عنوان مقاله"])}</h3><p>${esc(a["نمونه سؤال‌ها"]||"")}</p></div>`}
+function wireCards(root=document){root.querySelectorAll(".articleCard").forEach(c=>c.onclick=()=>openArticle(c.dataset.id))}
+function renderHome(){
+  if(!$("#page-home"))return;
+  const arr=allowedArticles(),cats={};arr.forEach(a=>cats[a["دسته‌بندی"]]=(cats[a["دسته‌بندی"]]||0)+1);
+  const p=progress();
+  $("#page-home").innerHTML=`<div class="hero"><div class="heroEyebrow">SNAPPPAY · KNOWLEDGE</div><h1>${esc(S.me.full_name?.split(" ")[0]||"")}، دنبال چی می‌گردی؟</h1>
+  <p>${esc(S.db.config.SEARCH_HELP||"مسئله را با زبان طبیعی بنویس؛ لازم نیست اسم دقیق دسته را بدانی.")}</p>
+  <div class="heroSearch"><input id="heroSearch" placeholder="مثلاً: سرور عوض کردیم 403 میده، یا پرداخت گذشته ولی واریز نشده…"></div>
+  <div class="exampleRow">${String(S.db.config.SEARCH_EXAMPLES||"تسویه نیومده | شبا عوض کنم | Forbidden | محصول تو سرچ نیست | ثبت‌نام تایید شده").split("|").map(x=>`<button class="example">${esc(x.trim())}</button>`).join("")}</div></div>
+  <div class="metrics"><div class="metric"><b>${arr.length}</b><span>مقاله در دسترس</span></div><div class="metric"><b>${Object.keys(cats).length}</b><span>دسته‌بندی</span></div><div class="metric"><b>${(S.db.newJoiner||[]).length}</b><span>ماژول آموزشی</span></div><div class="metric"><b>${p}%</b><span>پیشرفت آموزش</span></div></div>
+  <div class="section"><div class="sectionHead"><div><h2>دسته‌بندی‌ها</h2><p>دانش عملیاتی مرتب و قابل جستجو</p></div></div><div class="grid">${Object.entries(cats).map(([c,n])=>`<div class="card click catCard" data-cat="${esc(c)}"><div class="cardTop"><span class="pill">${esc(c)}</span><span class="count">${n} مقاله</span></div><h3>${esc(c)}</h3><p>مشاهده پاسخ‌ها و راهنماهای این بخش</p></div>`).join("")}</div></div>
+  <div class="section"><div class="sectionHead"><div><h2>پرکاربردها</h2><p>مقاله‌های با وزن جستجوی بالاتر</p></div></div><div class="grid">${[...arr].sort((a,b)=>Number(b["وزن جستجو"]||0)-Number(a["وزن جستجو"]||0)).slice(0,6).map(articleCard).join("")}</div></div>`;
+  $("#heroSearch").onkeydown=e=>{if(e.key==="Enter"){const q=e.target.value.trim();if(q){$("#topSearch").value=q;showSearch(q,$("#searchPanel"));$("#topSearch").focus()}}};
+  $$(".example").forEach(b=>b.onclick=()=>{$("#heroSearch").value=b.textContent;$("#heroSearch").dispatchEvent(new KeyboardEvent("keydown",{key:"Enter"}))});
+  $$(".catCard").forEach(c=>c.onclick=()=>{S.category=c.dataset.cat;renderKnowledge();nav("knowledge")});wireCards($("#page-home"))
+}
+function renderKnowledge(){
+  if(!$("#page-knowledge"))return;
+  const arr=allowedArticles(),cats=["همه",...new Set(arr.map(a=>a["دسته‌بندی"]))],shown=S.category?arr.filter(a=>a["دسته‌بندی"]===S.category):arr;
+  $("#page-knowledge").innerHTML=`<div class="sectionHead"><div><h2>پایگاه دانش</h2><p>${shown.length} مقاله استاندارد و قابل ارسال</p></div></div>
+  <div class="filters">${cats.map(c=>`<button class="filter ${(!S.category&&c==="همه")||S.category===c?"active":""}" data-cat="${esc(c==="همه"?"":c)}">${esc(c)}</button>`).join("")}</div>
+  <div class="grid" style="margin-top:11px">${shown.map(articleCard).join("")}</div>`;
+  $$("#page-knowledge .filter").forEach(b=>b.onclick=()=>{S.category=b.dataset.cat;renderKnowledge()});wireCards($("#page-knowledge"))
+}
+function showSearch(q,panel){
+  q=q.trim();if(!q){panel.classList.remove("open");return}
+  const res=search(q);
+  panel.innerHTML=res.length?res.map(x=>`<div class="searchItem" data-id="${esc(x.a.ID)}"><div><b>${esc(x.a["عنوان مقاله"])}</b><span>${esc(x.a["دسته‌بندی"])} · ${esc(x.a["نمونه سؤال‌ها"]||"")}</span></div><div class="score">${Math.min(99,Math.round(x.s))}%</div></div>`).join(""):`<div class="empty">نتیجه خوبی پیدا نشد؛ یک کلمه فنی اضافه کن.</div>`;
+  panel.classList.add("open");
+  panel.querySelectorAll(".searchItem").forEach(i=>i.onclick=()=>{panel.classList.remove("open");openArticle(i.dataset.id);logEvent("search",{search_query:q,normalized_query:norm(q),top_article_id:res[0]?.a.ID||"",top_article_title:res[0]?.a["عنوان مقاله"]||"",match_score:res[0]?Math.round(res[0].s):0,result_count:res.length})})
+}
+async function openArticle(id){
+  const a=allowedArticles().find(x=>x.ID===id);if(!a)return;
+  const prepared=answerFor(a),med=mediaFor(id),cover=a["کاور / Image URL"]||med.find(x=>x["نوع"]==="cover")?.["Image URL"]||"",
+        steps=med.filter(x=>x["نوع"]==="step"),related=String(a["مقالات مرتبط"]||"").split(",").map(x=>x.trim()).map(rid=>allowedArticles().find(z=>z.ID===rid)).filter(Boolean),
+        action=a["لینک اقدام مستقیم"]||"",source=a["لینک آکادمی"]||"";
+  $("#page-article").innerHTML=`<div class="articleLayout fade"><main class="articleMain">
+  <div class="articleHead"><button class="backBtn" id="backArticle">← برگشت به پایگاه دانش</button><div class="meta" style="margin-top:14px"><span class="pill">${esc(a["دسته‌بندی"])}</span><span class="tag">${esc(a.ID)}</span><span class="tag">آپدیت ${esc(a["آخرین بروزرسانی"]||"")}</span></div>
+  <h1 class="articleTitle">${esc(a["عنوان مقاله"])}</h1><div class="sample">${esc(a["نمونه سؤال‌ها"]||"")}</div>${cover?`<img class="cover" src="${esc(cover)}" onerror="this.style.display='none'">`:""}</div>
+  <div class="response"><div class="responseBar"><div><span>پاسخ نهایی</span><b>آماده ارسال برای پذیرنده</b></div>${S.access?.can_copy_answers?`<button class="btn primary small" id="copyAnswer">کپی پاسخ</button>`:""}</div><div class="answer">${renderAnswer(prepared)}</div></div>
+  ${S.access?.can_view_internal_notes&&a["راهنمای داخلی کارشناس"]?`<div class="internal"><b>نکته داخلی کارشناس</b><br>${esc(a["راهنمای داخلی کارشناس"])}</div>`:""}
+  ${steps.length?`<div class="section"><div class="sectionHead"><div><h2>آموزش تصویری</h2><p>تصاویر مربوط به همین فرآیند</p></div></div><div class="gallery">${steps.map(s=>`<div class="shot"><img src="${esc(s["Image URL"])}"><span>${esc(s["عنوان تصویر"]||"")}</span></div>`).join("")}</div></div>`:""}</main>
+  <aside class="articleAside">${action?`<div class="asideBox"><div class="asideLabel">اقدام مستقیم</div><div class="actionBox"><b>${esc(a["برچسب اقدام"]||"انجام اقدام")}</b><a class="actionLink" id="actionLink" target="_blank" rel="noopener" href="${esc(action)}">باز کردن لینک ↗</a><code>${esc(action)}</code></div></div>`:""}
+  ${S.access?.can_view_academy_links&&source?`<div class="asideBox"><div class="asideLabel">منبع رسمی</div><a class="sourceLink" id="sourceLink" target="_blank" rel="noopener" href="${esc(source)}"><span>${esc(a["عنوان منبع آکادمی"]||"راهنمای آکادمی")}</span><b>↗</b></a></div>`:""}
+  ${related.length?`<div class="asideBox"><div class="asideLabel">مقالات مرتبط</div><div class="related">${related.map(r=>`<button data-id="${esc(r.ID)}">${esc(r["عنوان مقاله"])}</button>`).join("")}</div></div>`:""}</aside></div>`;
+  $("#backArticle").onclick=()=>nav("knowledge");
+  $("#copyAnswer")?.addEventListener("click",async()=>{const ok=await copyText(prepared);toast(ok?"پاسخ همراه لینک کپی شد ✓":"کپی انجام نشد");logEvent("copy_answer",{article_id:id,article_title:a["عنوان مقاله"],category:a["دسته‌بندی"]})});
+  $("#actionLink")?.addEventListener("click",()=>logEvent("action_click",{article_id:id,action_url:action}));
+  $("#sourceLink")?.addEventListener("click",()=>logEvent("source_click",{article_id:id,source_url:source}));
+  $$(".related button").forEach(b=>b.onclick=()=>openArticle(b.dataset.id));
+  nav("article");logEvent("open_article",{article_id:id,article_title:a["عنوان مقاله"],category:a["دسته‌بندی"]})
+}
+function progress(){const n=(S.db.newJoiner||[]).length;return n?Math.round(S.training.size/n*100):0}
+function renderTraining(){
+  if(!$("#page-training"))return;
+  const p=progress();
+  $("#page-training").innerHTML=`<div class="trainingHero"><div class="hero"><div class="heroEyebrow">NEW JOINER ACADEMY</div><h1>از روز اول تا جواب‌دادن مستقل</h1><p>هر بخش تمرین، نکته مربی و مقاله واقعی دارد. پیشرفت روی حساب خودت ذخیره می‌شود.</p></div>
+  <div class="progressCard"><div class="progressRing" style="--p:${p}%"><b>${p}%</b></div><div class="muted" style="font-size:9px;margin-top:8px">${S.training.size} از ${(S.db.newJoiner||[]).length} ماژول</div></div></div>
+  <div class="modules">${(S.db.newJoiner||[]).map((m,i)=>{const done=S.training.has(m["Module ID"]);return `<div class="module ${done?"done":""}" data-id="${esc(m["Module ID"])}">
+  <div class="moduleNum">${done?"✓":i+1}</div><div><h3>${esc(m["عنوان"])}</h3><p>${esc(m["هدف یادگیری"]||"")} · ${esc(m["مدت تقریبی"]||"")} دقیقه</p>
+  <div class="moduleDetail"><p>${esc(m["محتوا / خلاصه"]||"")}</p><div class="exercise"><b>تمرین:</b><br>${esc(m["تمرین عملی"]||"")}</div>
+  <div style="margin-top:8px;display:flex;gap:6px;flex-wrap:wrap">${m["لینک مقاله مرتبط"]?`<button class="btn small jumpArticle" data-article="${esc(m["لینک مقاله مرتبط"])}">مقاله مرتبط</button>`:""}<button class="btn small coachBtn" data-coach="${esc(m["Module ID"])}">جواب مربی</button></div>
+  <div class="coach hidden" id="coach-${esc(m["Module ID"])}" style="margin-top:7px;font-size:9px;color:var(--success)">${esc(m["جواب مورد انتظار / نکته مربی"]||"")}</div></div></div>
+  <div><button class="btn small openMod">جزئیات</button> <button class="btn small ${done?"":"primary"} doneMod">${done?"برگرداندن":"تکمیل شد"}</button></div></div>`}).join("")}</div>`;
+  $$(".openMod").forEach(b=>b.onclick=()=>b.closest(".module").classList.toggle("open"));
+  $$(".coachBtn").forEach(b=>b.onclick=()=>$("#coach-"+b.dataset.coach).classList.toggle("hidden"));
+  $$(".jumpArticle").forEach(b=>b.onclick=()=>openArticle(b.dataset.article));
+  $$(".doneMod").forEach(b=>b.onclick=async()=>{
+    const id=b.closest(".module").dataset.id,newDone=!S.training.has(id);
+    try{await setTrainingDone(id,newDone);renderTraining();renderHome();logEvent("training_progress",{new_joiner_module:id,progress:progress()})}
+    catch{toast("ثبت پیشرفت انجام نشد")}
+  })
+}
+
+async function renderAdmin(){
+  if(!$("#page-admin")||!S.access?.can_manage_users)return;
+  $("#page-admin").innerHTML=`<div class="adminTop"><div><h2 style="margin:0;font-size:16px">مدیریت کاربران</h2><div class="muted" style="font-size:9px">تأیید، رد، تغییر نوع دسترسی و غیرفعال‌سازی</div></div><button class="btn small" id="refreshUsers">↻ بروزرسانی</button></div><div id="adminBody"><div class="empty">در حال دریافت کاربران…</div></div>`;
+  $("#refreshUsers").onclick=renderAdmin;
+  try{
+    const users=await rpc("admin_list_users"),stats={pending:0,active:0,rejected:0,disabled:0};
+    users.forEach(u=>stats[u.status]=(stats[u.status]||0)+1);
+    const statusFa={pending:"در انتظار",active:"فعال",rejected:"رد شده",disabled:"غیرفعال"};
+    $("#adminBody").innerHTML=`<div class="adminStats"><div class="adminStat"><b>${stats.pending}</b><span>در انتظار تأیید</span></div><div class="adminStat"><b>${stats.active}</b><span>فعال</span></div><div class="adminStat"><b>${stats.disabled}</b><span>غیرفعال</span></div><div class="adminStat"><b>${users.length}</b><span>کل کاربران</span></div></div>
+    <div class="tableWrap"><table><thead><tr><th>کاربر</th><th>Email</th><th>درخواست</th><th>دسترسی</th><th>وضعیت</th><th>Onboarding</th><th>اقدام</th></tr></thead>
+    <tbody>${users.map(u=>`<tr data-id="${u.id}"><td><b>${esc(u.full_name||u.username||"—")}</b></td><td>${esc(u.email||"")}</td><td>${esc(roleLabel(u.requested_role))}</td>
+    <td>${u.role==="admin"?`<span class="pill">ادمین</span>`:`<select class="roleSelect">${S.roles.map(r=>`<option value="${esc(r["Role ID"])}" ${u.role===r["Role ID"]?"selected":""}>${esc(r["Role Label FA"])}</option>`).join("")}</select>`}</td>
+    <td><span class="sbadge ${u.status==="active"?"activeStatus":u.status==="pending"?"pending":"disabledStatus"}">${esc(statusFa[u.status]||u.status)}</span></td><td>${Math.round(Number(u.onboarding_score||0))}%</td>
+    <td>${u.role==="admin"?`<span class="muted">مالک سیستم</span>`:`<div style="display:flex;gap:5px">${u.status!=="active"?`<button class="btn primary small approve">تأیید</button>`:`<button class="btn small disable">غیرفعال</button>`}<button class="btn danger small reject">رد</button></div>`}</td></tr>`).join("")}</tbody></table></div>`;
+    $$("#adminBody tr[data-id]").forEach(tr=>{
+      const id=tr.dataset.id,sel=tr.querySelector(".roleSelect");if(!sel)return;
+      tr.querySelector(".approve")?.addEventListener("click",()=>adminSet(id,"active",sel.value));
+      tr.querySelector(".disable")?.addEventListener("click",()=>adminSet(id,"disabled",sel.value));
+      tr.querySelector(".reject")?.addEventListener("click",()=>adminSet(id,"rejected",sel.value));
+      sel.onchange=()=>{if(tr.querySelector(".sbadge")?.textContent==="فعال")adminSet(id,"active",sel.value)}
+    })
+  }catch(e){$("#adminBody").innerHTML=`<div class="empty">خطا در دریافت کاربران: ${esc(e.message)}</div>`}
+}
+async function adminSet(id,status,role){
+  try{await rpc("admin_set_user",{p_user_id:id,p_status:status,p_role:role});toast("دسترسی کاربر بروزرسانی شد ✓");renderAdmin()}
+  catch(e){toast("خطا: "+(e.message||""))}
+}
+
+document.addEventListener("click",e=>{if(!e.target.closest(".searchWrap"))$("#searchPanel")?.classList.remove("open")});
+document.addEventListener("keydown",e=>{
+  if(S.me?.status==="active"&&S.access&&(e.ctrlKey||e.metaKey)&&e.key.toLowerCase()==="k"){
+    e.preventDefault();$("#command").classList.add("open");$("#cmdInput").focus()
+  }
+  if(e.key==="Escape")$("#command").classList.remove("open")
+});
+$("#command").onclick=e=>{if(e.target===$("#command"))$("#command").classList.remove("open")};
+$("#cmdInput").oninput=e=>{
+  if(S.me?.status!=="active")return;
+  const q=e.target.value,res=search(q,15);
+  $("#cmdResults").innerHTML=res.map(x=>`<div class="searchItem" data-id="${esc(x.a.ID)}"><div><b>${esc(x.a["عنوان مقاله"])}</b><span>${esc(x.a["دسته‌بندی"])}</span></div><div class="score">${Math.min(99,Math.round(x.s))}%</div></div>`).join("")||`<div class="empty">نتیجه‌ای پیدا نشد.</div>`;
+  $("#cmdResults").querySelectorAll(".searchItem").forEach(i=>i.onclick=()=>{$("#command").classList.remove("open");openArticle(i.dataset.id)})
+};
+
+setInterval(()=>{if(S.me?.status==="active")syncContent(true).catch(()=>{})},90000);
+setInterval(checkBuild,120000);
+window.addEventListener("focus",()=>{if(S.me?.status==="active")syncContent(true).catch(()=>{});checkBuild()});
 boot();
-</script></body></html>
+
+</script>
+</body>
+</html>
