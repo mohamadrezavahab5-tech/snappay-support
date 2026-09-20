@@ -227,6 +227,22 @@ body{background:
 .connectionCard h2{font-size:18px;margin:10px 0 5px}.connectionCard p{font-size:10px;color:var(--muted)}
 </style>
 
+
+<style id="quiz-ui">
+.quizOverlay{position:fixed;inset:0;z-index:9999;background:rgba(10,15,28,.58);backdrop-filter:blur(5px);display:grid;place-items:center;padding:22px}
+.quizDialog{width:min(780px,100%);max-height:90vh;overflow:auto;background:var(--surface);border:1px solid var(--line);border-radius:20px;box-shadow:var(--shadow-lg);padding:24px}
+.quizHead{display:flex;align-items:flex-start;justify-content:space-between;gap:16px;margin-bottom:16px}
+.quizHead h2{margin:0;font-size:19px}.quizHead p{margin:3px 0 0;color:var(--muted);font-size:10px}
+.quizQ{border:1px solid var(--line);border-radius:14px;padding:15px;margin:10px 0;background:var(--surface2)}
+.quizQ>strong{display:block;margin-bottom:10px;font-size:12px}
+.quizOptions{display:grid;gap:7px}.quizOption{display:flex;gap:9px;align-items:center;padding:10px;border:1px solid var(--line);border-radius:10px;background:var(--surface);cursor:pointer}
+.quizOption:hover{border-color:var(--accent);background:var(--accent-soft)}.quizOption input{accent-color:var(--accent)}
+.quizResult{margin-top:13px;padding:13px;border-radius:12px;background:var(--surface3);font-size:11px}
+.quizResult.pass{background:var(--success-soft);color:var(--success)}.quizResult.fail{background:var(--danger-soft);color:var(--danger)}
+.examCard{margin:14px 0 18px;padding:18px;border:1px solid var(--line);border-radius:16px;background:linear-gradient(135deg,var(--surface),var(--accent-soft))}
+.examCard h3{margin:0 0 4px;font-size:15px}.examCard p{margin:0;color:var(--muted);font-size:10px}
+.quizBadge{display:inline-flex;align-items:center;padding:4px 8px;border-radius:999px;font-size:9px;font-weight:800;background:var(--success-soft);color:var(--success)}
+</style>
 </head>
 <body>
 <div id="root"></div>
@@ -241,7 +257,7 @@ const BUILD="9.1.0";
 const FALLBACK=JSON.parse(document.getElementById("fallback").textContent);
 const $=q=>document.querySelector(q), $$=q=>[...document.querySelectorAll(q)];
 const S={
-  db:{articles:[],media:[],newJoiner:[],config:{},meta:{version:BUILD}},
+  db:{articles:[],media:[],newJoiner:[],quizQuestions:[],config:{},meta:{version:BUILD}},
   roles:[...(FALLBACK.roles||[])],
   questions:[...(FALLBACK.questions||[])],
   session:null,me:null,access:null,
@@ -319,7 +335,7 @@ async function rpc(name,body={}){
   catch(e){if(e.status===401&&await refreshSession())return api("/rest/v1/rpc/"+name,{method:"POST",body});throw e}
 }
 function clearSensitive(){
-  S.db={articles:[],media:[],newJoiner:[],config:{},meta:{version:BUILD}};
+  S.db={articles:[],media:[],newJoiner:[],quizQuestions:[],config:{},meta:{version:BUILD}};
   S.category="";S.sheetAt=null;S.training=new Set();
   const cmd=$("#command");if(cmd)cmd.classList.remove("open");
   const cr=$("#cmdResults");if(cr)cr.innerHTML="";
@@ -369,7 +385,7 @@ async function syncContent(silent=false){
       if(!d?.ok)throw new Error(d?.error||"content_error");
       S.me={...(S.me||{}),...(d.profile||{}),email:d.email||S.me?.email};
       S.access=d.access||S.access;
-      S.db={articles:d.articles||[],media:d.media||[],newJoiner:d.newJoiner||[],config:d.config||{},meta:d.meta||{version:BUILD}};
+      S.db={articles:d.articles||[],media:d.media||[],newJoiner:d.newJoiner||[],quizQuestions:d.quizQuestions||[],config:d.config||{},meta:d.meta||{version:BUILD}};
       S.sheetAt=new Date(d.meta?.synced_at||Date.now());
       if(document.querySelector(".shell")){
         const current=document.querySelector(".page.active")?.id?.replace("page-","")||"home";
@@ -677,26 +693,80 @@ async function openArticle(id){
   $$(".related button").forEach(b=>b.onclick=()=>openArticle(b.dataset.id));
   nav("article");logEvent("open_article",{article_id:id,article_title:a["عنوان مقاله"],category:a["دسته‌بندی"]})
 }
-function progress(){const n=(S.db.newJoiner||[]).length;return n?Math.round(S.training.size/n*100):0}
+
+function progress(){
+  const required=(S.db.newJoiner||[]).filter(m=>String(m["اجباری"]||"").toUpperCase()!=="FALSE");
+  return required.length?Math.round(required.filter(m=>S.training.has(m["Module ID"])).length/required.length*100):0
+}
+function quizFor(scope,moduleId){
+  return (S.db.quizQuestions||[]).filter(q=>q["Scope"]===scope && (scope==="final"||q["Module ID"]===moduleId))
+}
+function quizOption(q,letter){
+  const txt=q["Option "+letter]||"";
+  return txt?`<label class="quizOption"><input type="radio" name="q-${esc(q["Question ID"])}" value="${letter}"><span><b>${letter}</b> — ${esc(txt)}</span></label>`:""
+}
+function openQuiz(scope,moduleId){
+  const qs=quizFor(scope,moduleId);
+  if(!qs.length){toast("سؤال آزمون برای این بخش دریافت نشد");return}
+  $("#quizOverlay")?.remove();
+  const overlay=document.createElement("div");overlay.id="quizOverlay";overlay.className="quizOverlay";
+  const isFinal=scope==="final";
+  overlay.innerHTML=`<div class="quizDialog fade"><div class="quizHead"><div><h2>${isFinal?"آزمون نهایی New Joiner":"آزمون ماژول"}</h2><p>${isFinal?"حداقل نمره قبولی ۸۰٪ است.":"برای تکمیل این ماژول باید آزمون را با نمره قبولی بگذرانی."}</p></div><button class="iconBtn closeQuiz">×</button></div>
+  <div class="quizQuestions">${qs.map((q,i)=>`<div class="quizQ"><strong>${i+1}. ${esc(q["Question"])}</strong><div class="quizOptions">${["A","B","C","D"].map(l=>quizOption(q,l)).join("")}</div></div>`).join("")}</div>
+  <div id="quizResult"></div><div style="display:flex;justify-content:flex-end;gap:7px;margin-top:14px"><button class="btn closeQuiz">انصراف</button><button class="btn primary" id="submitQuiz">ثبت پاسخ و محاسبه نمره</button></div></div>`;
+  document.body.appendChild(overlay);
+  overlay.querySelectorAll(".closeQuiz").forEach(b=>b.onclick=()=>overlay.remove());
+  overlay.addEventListener("click",e=>{if(e.target===overlay)overlay.remove()});
+  $("#submitQuiz").onclick=()=>submitQuiz(scope,moduleId,qs,overlay)
+}
+async function submitQuiz(scope,moduleId,qs,overlay){
+  const answers={};
+  for(const q of qs){
+    const x=overlay.querySelector(`input[name="q-${CSS.escape(q["Question ID"])}"]:checked`);
+    if(!x){toast("به همه سؤال‌ها جواب بده");return}
+    answers[q["Question ID"]]=x.value
+  }
+  const btn=overlay.querySelector("#submitQuiz");btn.disabled=true;btn.textContent="در حال تصحیح…";
+  try{
+    const d=await api("/functions/v1/answerhub-data",{method:"POST",body:{action:"grade_quiz",scope,module_id:moduleId,answers}});
+    const box=overlay.querySelector("#quizResult");
+    const wrong=(d.detail||[]).filter(x=>!x.correct);
+    box.className="quizResult "+(d.passed?"pass":"fail");
+    box.innerHTML=`<b>نمره: ${d.score} از ۱۰۰ — ${d.passed?"قبول شدی ✓":"قبول نشدی"}</b>${wrong.length?`<div style="margin-top:8px">${wrong.map(x=>`<div style="margin:5px 0">پاسخ درست: <b>${esc(x.correct_option)}</b> · ${esc(x.explanation||"")}</div>`).join("")}</div>`:""}`;
+    if(d.passed){
+      if(scope==="module")S.training.add(moduleId);
+      else{S.me.final_exam_passed=true;S.me.final_exam_score=d.score;S.me.final_exam_passed_at=new Date().toISOString()}
+      logEvent("quiz_pass",{new_joiner_module:scope==="module"?moduleId:"FINAL",progress:progress(),score:d.score});
+      setTimeout(()=>{overlay.remove();renderTraining();renderHome()},1100)
+    }else{
+      logEvent("quiz_fail",{new_joiner_module:scope==="module"?moduleId:"FINAL",score:d.score});
+      btn.disabled=false;btn.textContent="دوباره امتحان بده"
+    }
+  }catch(e){
+    toast("تصحیح آزمون انجام نشد");btn.disabled=false;btn.textContent="ثبت پاسخ و محاسبه نمره"
+  }
+}
 function renderTraining(){
   if(!$("#page-training"))return;
-  const p=progress();
-  $("#page-training").innerHTML=`<div class="trainingHero"><div class="hero"><div class="heroEyebrow">NEW JOINER ACADEMY</div><h1>از روز اول تا جواب‌دادن مستقل</h1><p>هر بخش تمرین، نکته مربی و مقاله واقعی دارد. پیشرفت روی حساب خودت ذخیره می‌شود.</p></div>
-  <div class="progressCard"><div class="progressRing" style="--p:${p}%"><b>${p}%</b></div><div class="muted" style="font-size:9px;margin-top:8px">${S.training.size} از ${(S.db.newJoiner||[]).length} ماژول</div></div></div>
-  <div class="modules">${(S.db.newJoiner||[]).map((m,i)=>{const done=S.training.has(m["Module ID"]);return `<div class="module ${done?"done":""}" data-id="${esc(m["Module ID"])}">
+  const modules=S.db.newJoiner||[],required=modules.filter(m=>String(m["اجباری"]||"").toUpperCase()!=="FALSE"),p=progress();
+  const doneRequired=required.filter(m=>S.training.has(m["Module ID"])).length;
+  const ready=required.length>0&&doneRequired===required.length;
+  const finalPassed=!!S.me?.final_exam_passed;
+  $("#page-training").innerHTML=`<div class="trainingHero"><div class="hero"><div class="heroEyebrow">NEW JOINER ACADEMY</div><h1>یاد بگیر، امتحان بده، بعد Pass شو</h1><p>هر ماژول فقط بعد از قبولی در آزمون خودش تکمیل می‌شود. پایان مسیر هم آزمون نهایی دارد.</p></div>
+  <div class="progressCard"><div class="progressRing" style="--p:${p}%"><b>${p}%</b></div><div class="muted" style="font-size:9px;margin-top:8px">${doneRequired} از ${required.length} ماژول پاس شده</div></div></div>
+  <div class="examCard"><div style="display:flex;justify-content:space-between;gap:14px;align-items:center"><div><h3>🎯 آزمون نهایی</h3><p>${finalPassed?`قبول شدی · نمره ${Math.round(Number(S.me.final_exam_score||0))}/100`:ready?"همه ماژول‌ها را پاس کردی؛ آزمون نهایی باز است.":"بعد از قبولی در همه ماژول‌های اجباری باز می‌شود."}</p></div>
+  ${finalPassed?`<span class="quizBadge">FINAL PASS ✓</span>`:`<button class="btn primary" id="finalExamBtn" ${ready?"":"disabled"}>شروع آزمون نهایی</button>`}</div></div>
+  <div class="modules">${modules.map((m,i)=>{const id=m["Module ID"],done=S.training.has(id),hasQuiz=quizFor("module",id).length>0;return `<div class="module ${done?"done":""}" data-id="${esc(id)}">
   <div class="moduleNum">${done?"✓":i+1}</div><div><h3>${esc(m["عنوان"])}</h3><p>${esc(m["هدف یادگیری"]||"")} · ${esc(m["مدت تقریبی"]||"")} دقیقه</p>
   <div class="moduleDetail"><p>${esc(m["محتوا / خلاصه"]||"")}</p><div class="exercise"><b>تمرین:</b><br>${esc(m["تمرین عملی"]||"")}</div>
-  <div style="margin-top:8px;display:flex;gap:6px;flex-wrap:wrap">${m["لینک مقاله مرتبط"]?`<button class="btn small jumpArticle" data-article="${esc(m["لینک مقاله مرتبط"])}">مقاله مرتبط</button>`:""}<button class="btn small coachBtn" data-coach="${esc(m["Module ID"])}">جواب مربی</button></div>
-  <div class="coach hidden" id="coach-${esc(m["Module ID"])}" style="margin-top:7px;font-size:9px;color:var(--success)">${esc(m["جواب مورد انتظار / نکته مربی"]||"")}</div></div></div>
-  <div><button class="btn small openMod">جزئیات</button> <button class="btn small ${done?"":"primary"} doneMod">${done?"برگرداندن":"تکمیل شد"}</button></div></div>`}).join("")}</div>`;
+  <div style="margin-top:8px;display:flex;gap:6px;flex-wrap:wrap">${m["لینک مقاله مرتبط"]?`<button class="btn small jumpArticle" data-article="${esc(m["لینک مقاله مرتبط"])}">مقاله مرتبط</button>`:""}${done?`<button class="btn small coachBtn" data-coach="${esc(id)}">نکته مربی</button>`:""}</div>
+  ${done?`<div class="coach hidden" id="coach-${esc(id)}" style="margin-top:7px;font-size:9px;color:var(--success)">${esc(m["جواب مورد انتظار / نکته مربی"]||"")}</div>`:""}</div></div>
+  <div style="display:flex;gap:6px;align-items:center"><button class="btn small openMod">درس</button>${done?`<span class="quizBadge">قبول شد ✓</span><button class="btn small quizMod">مرور آزمون</button>`:`<button class="btn small primary quizMod" ${hasQuiz?"":"disabled"}>${hasQuiz?"شروع آزمون":"آزمون در دسترس نیست"}</button>`}</div></div>`}).join("")}</div>`;
   $$(".openMod").forEach(b=>b.onclick=()=>b.closest(".module").classList.toggle("open"));
-  $$(".coachBtn").forEach(b=>b.onclick=()=>$("#coach-"+b.dataset.coach).classList.toggle("hidden"));
+  $$(".coachBtn").forEach(b=>b.onclick=()=>$("#coach-"+b.dataset.coach)?.classList.toggle("hidden"));
   $$(".jumpArticle").forEach(b=>b.onclick=()=>openArticle(b.dataset.article));
-  $$(".doneMod").forEach(b=>b.onclick=async()=>{
-    const id=b.closest(".module").dataset.id,newDone=!S.training.has(id);
-    try{await setTrainingDone(id,newDone);renderTraining();renderHome();logEvent("training_progress",{new_joiner_module:id,progress:progress()})}
-    catch{toast("ثبت پیشرفت انجام نشد")}
-  })
+  $$(".quizMod").forEach(b=>b.onclick=()=>openQuiz("module",b.closest(".module").dataset.id));
+  $("#finalExamBtn")?.addEventListener("click",()=>openQuiz("final","FINAL"))
 }
 
 async function renderAdmin(){
@@ -708,10 +778,10 @@ async function renderAdmin(){
     users.forEach(u=>stats[u.status]=(stats[u.status]||0)+1);
     const statusFa={pending:"در انتظار",active:"فعال",rejected:"رد شده",disabled:"غیرفعال"};
     $("#adminBody").innerHTML=`<div class="adminStats"><div class="adminStat"><b>${stats.pending}</b><span>در انتظار تأیید</span></div><div class="adminStat"><b>${stats.active}</b><span>فعال</span></div><div class="adminStat"><b>${stats.disabled}</b><span>غیرفعال</span></div><div class="adminStat"><b>${users.length}</b><span>کل کاربران</span></div></div>
-    <div class="tableWrap"><table><thead><tr><th>کاربر</th><th>Email</th><th>درخواست</th><th>دسترسی</th><th>وضعیت</th><th>Onboarding</th><th>اقدام</th></tr></thead>
+    <div class="tableWrap"><table><thead><tr><th>کاربر</th><th>Email</th><th>درخواست</th><th>دسترسی</th><th>وضعیت</th><th>Onboarding</th><th>Final Exam</th><th>اقدام</th></tr></thead>
     <tbody>${users.map(u=>`<tr data-id="${u.id}"><td><b>${esc(u.full_name||u.username||"—")}</b></td><td>${esc(u.email||"")}</td><td>${esc(roleLabel(u.requested_role))}</td>
     <td>${u.role==="admin"?`<span class="pill">ادمین</span>`:`<select class="roleSelect">${S.roles.map(r=>`<option value="${esc(r["Role ID"])}" ${u.role===r["Role ID"]?"selected":""}>${esc(r["Role Label FA"])}</option>`).join("")}</select>`}</td>
-    <td><span class="sbadge ${u.status==="active"?"activeStatus":u.status==="pending"?"pending":"disabledStatus"}">${esc(statusFa[u.status]||u.status)}</span></td><td>${Math.round(Number(u.onboarding_score||0))}%</td>
+    <td><span class="sbadge ${u.status==="active"?"activeStatus":u.status==="pending"?"pending":"disabledStatus"}">${esc(statusFa[u.status]||u.status)}</span></td><td>${Math.round(Number(u.onboarding_score||0))}%</td><td>${u.final_exam_passed?`<span class="quizBadge">${Math.round(Number(u.final_exam_score||0))}% ✓</span>`:`<span class="muted">—</span>`}</td>
     <td>${u.role==="admin"?`<span class="muted">مالک سیستم</span>`:`<div style="display:flex;gap:5px">${u.status!=="active"?`<button class="btn primary small approve">تأیید</button>`:`<button class="btn small disable">غیرفعال</button>`}<button class="btn danger small reject">رد</button></div>`}</td></tr>`).join("")}</tbody></table></div>`;
     $$("#adminBody tr[data-id]").forEach(tr=>{
       const id=tr.dataset.id,sel=tr.querySelector(".roleSelect");if(!sel)return;
